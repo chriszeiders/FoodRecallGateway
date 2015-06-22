@@ -4,9 +4,9 @@ define([
 	'jquery', 'backbone', 'text!templates/main.html', 'text!locale/main.json', 'text!locale/es_mx/main.json',
 	'text!templates/dateRangeTemplate.html','text!templates/distributionPattern.html','text!templates/stateTemplate.html',
 	'text!templates/recallStatusTemplate.html',	'text!templates/foodPyramidTemplate.html','text!templates/foodPathogenTemplate.html',
-	'collections/itemCollection'
+	'text!templates/resultsSubTemplate.html','collections/itemCollection', 'collections/recalledFoodCollection'
 ], function($, Backbone, template, content, contentES,DateRangeTemplate, DistributionPatternTemplate, StateTemplate,RecallStatusTemplate,
-	FoodPyramidTemplate, FoodPathogenTemplate,ItemCollection) {
+	FoodPyramidTemplate, FoodPathogenTemplate,ResultsSubTemplate,ItemCollection, RecalledFoodCollection) {
 	'use strict';
 
 	// Creates a new Backbone View class object
@@ -32,7 +32,9 @@ define([
 
 		// View Event Handlers
 		events: {
-
+			'click button[id="btnSearch"]': 'getResults',
+			'click a[id="prev"]': 'movePrev',
+			'click a[id="next"]': 'moveNext'
 		},
 
 		// Renders the view's template to the UI
@@ -92,6 +94,21 @@ define([
 
 
 		},
+		displayResults:function(){
+			this.recalledFoodCollection = new RecalledFoodCollection();
+			this.recalledFoodCollection.url = this.model.generateURL();
+
+	            var self = this;
+	            this.recalledFoodCollection.fetch().done(function(){
+		            //Display the results 
+		            self.$el.find('#resultsContainer').html('');
+
+		            self.totalCount = self.recalledFoodCollection.totalCount;
+
+		            self.loadTemplate('resultsContainer',ResultsSubTemplate,self.recalledFoodCollection.toJSON(),self.recalledFoodCollection.totalCount,self.model);
+	            });			
+
+		},			
 		loadAdvancedSearch:function(){
 			this.loadCollection(window.gblRecallStatusList,'recallStatusSection', RecallStatusTemplate,this.recallStatusCollection,this.model);
 			this.$el.find('#distributionPatternSection').html(this.distPatternTemplate);	
@@ -119,8 +136,35 @@ define([
 			});
 
 			this.$el.find('#' + id).html(this.subTemplate);
-		}		
+		},	
+		getResults:function(e){
+			e.preventDefault();
+			this.setModelDataAndNavigate();
 
+        },
+        moveNext:function(e){
+        	e.preventDefault();
+        	var skipValue = (this.model.get('skip') === this.totalCount)?this.totalCount: (this.model.get('skip') + 5);
+        	this.model.set('skip', skipValue);
+        	this.displayResults();
+        },
+        movePrev:function(e){
+        	e.preventDefault();
+        	var skipValue = (this.model.get('skip') === 0)?0: (this.model.get('skip') - 5);
+        	this.model.set('skip', skipValue);
+        	this.displayResults();        	
+        },
+	    setModelDataAndNavigate: function() {
+			var data = {
+				'searchTerms': (this.searchTerms) ? (_.isArray(this.searchTerms) ? this.searchTerms.join(',') : this.searchTerms) : '',
+				'distributionPattern': (this.stateList) ? (_.isArray(this.stateList) ? this.stateList.join(',') : this.stateList) : '',
+				'recallStatus': (this.recallStatuses) ? (_.isArray(this.recallStatuses) ? this.recallStatuses.join(',') : this.recallStatuses) : '',
+				'skip':this.model.get('skip')
+			};
+			this.model.clearModel();
+			this.model.set(data);
+			this.displayResults();
+		}     
 	});
 
 	// Returns the View class

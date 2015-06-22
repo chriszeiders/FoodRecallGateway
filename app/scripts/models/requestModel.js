@@ -26,7 +26,25 @@ define([
 				recallStatus:'',
 				skip:0				
 			});
-		}
+		},
+		generateURL: function() {
+			var serviceURL = '';
+			serviceURL = window.gblResults
+
+				if(this.get('searchTerms')){
+				 	serviceURL = serviceURL + 'search=product_description:' + this.get('searchTerms').replace(/,/g,'+');
+				}
+
+				if(this.get('recallStatus')){
+					serviceURL = serviceURL + '+AND+recall_status=' + this.get('recallStatus').replace(/,/g,'+');
+				}
+				if(this.get('distributionPattern')){
+					serviceURL = serviceURL + '+AND+distribution_pattern=nationwide+' + this.get('distributionPattern').replace(/,/g,'+');
+				}
+				serviceURL = serviceURL + '&skip='+ ((this.get('skip') === undefined || isNaN(this.get('skip')))?0:this.get('skip')) + '&limit=5'
+			
+			return serviceURL
+		}		
 	});
  
 	// Returns the Model class
