@@ -1,0 +1,67 @@
+<hr>
+<div class="row mbm">
+    <div class="col-md-6">
+		  <h2 id="numHeading" class="man">Number of result found <%-maxCount%></h2>    
+    </div>
+    <nav>
+      <ul class="pager">
+        <li><a href="javascript:void(0)" id="prev">Previous</a></li>
+        <li><a href="javascript:void(0)" id="next">Next</a></li>
+      </ul>
+    </nav>
+</div>
+<div id="myTabContent" class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="list" aria-labelledby="list-tab">
+        <%for (var i=0; i < data.length; i++) { %>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="container-flex">
+                      <span class="fa-stack fa-lg">
+                        <i class="fa fa-map-marker fa-stack-2x" style="font-size: 70px;"></i>
+                        <i class="fa fa-stack-1x" style="width: 100%; top: 20%;"><%- i+1%></i>
+                      </span>                      
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <h3 class="title">
+                      <a href="javascript:void(0)" id='rn_<%-data[i].recallNumber%>' data-id="<%-data[i].recallNumber%>"><%- data[i].recallNumber%></a>
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Product Description: </h4> <%- data[i].productDescription%><br>
+                    <h4>Reason for Recall: </h4> <%- data[i].reasonForRecall%><br>
+                    
+                  </div>
+                </div>
+                </div>
+                <div class="panel-footer">
+                   <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-file fa-stack-1x fa-inverse" ></i>
+                      </span>
+                      <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-heart fa-stack-1x fa-inverse" ></i>
+                      </span>
+                  <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-info fa-stack-1x fa-inverse" ></i>
+                      </span>
+                </div>
+               
+              </div>
+            <%}%>
+    </div>
+    
+    <div role="tabpanel" class="fade" id="map" aria-labelledby="map-tab" style="width:900px; height:400px;">
+        <div id='mapcanvas' style="width:900px; height:400px;"></div>
+    </div>
+    <!--<div id='mapcanvas' style="width:900px; height:400px;"></div>-->
+</div>
+
