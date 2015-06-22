@@ -1,4 +1,4 @@
-# Food Recall Gateway
+# Food Recall Gateway [![Build Status](https://travis-ci.org/DRTforGSA18F/FoodRecallGateway.svg?branch=master)](https://travis-ci.org/DRTforGSA18F/FoodRecallGateway)
 
 ## Getting Started
 This project requires node.js to run.

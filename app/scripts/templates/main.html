@@ -1,39 +1,33 @@
-<h1><%= content.headerText %></h1>
-<p><%= content.sampleText %></p>
+<h1><%=content.headerText %></h1>
+<p>
+    <%=content.sampleText %>
+</p>
 <!-- search section start-->
 <div id="searchContainer" class="row mtl mbl">
     <div class="col-md-6">
-    	<label for="foodSearch" class="sr-only">Type text to search</label>
-        <select id="select-fooditem" placeholder="Select a food item..." name="searchTerms" multiple >
-        	<option value="">Select a food item...</option>
-        	<option value="cheese">Cheese</option>
-        	<option value="meat">Meat</option>
-        	<option value="apple">Apple</option>
-        	<option value="orange">Orange</option>
-        	<option value="eggs">eggs</option>
-        	<option value="chicken">chicken</option>
-        	<option value="zucchini">zucchini</option>
-        	<option value="dressing">Dressing</option>
+        <label for="foodSearch" class="sr-only">Type text to search</label>
+        <select id="select-fooditem" placeholder="Select a food item..." name="searchTerms" multiple>
+            <option value="">Select a food item...</option>
+            <option value="cheese">Cheese</option>
+            <option value="meat">Meat</option>
+            <option value="apple">Apple</option>
+            <option value="orange">Orange</option>
+            <option value="eggs">eggs</option>
+            <option value="chicken">chicken</option>
+            <option value="zucchini">zucchini</option>
+            <option value="dressing">Dressing</option>
         </select>
-        <div class="input-group-btn">
-            <button id="btnSearch" class="btn btn-primary"><i class="glyphicon glyphicon-zoom-in"></i> Search</button>
-        </div>
     </div>
-    <div class="col-md-3">    
-	   <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#advSearchContainer">Advanced Search</button>
+    <div class="col-md-3">
+        <button id="btnSearch" class="btn btn-primary btn-block"><i class="fa fa-search"></i> Search</button>
     </div>
-    <div class="col-xs-12 collapse" id="advSearchContainer" >
+    <div class="col-md-3">
+        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#advSearchContainer">Advanced Search</button>
+    </div>
+
+    <div class="col-xs-12 collapse" id="advSearchContainer">
         <div class=" top_arrow_box mtl">
             <form role="form" class="row">
-              <div class="col-md-4 col-xs-12" id="dateRangeSection">
-          
-              </div>
-              <div class="col-md-3 col-xs-12" id="stateSection">
-                
-              </div>
-              <div class="col-md-2 col-xs-12" id="recallStatusSection">
-
-              </div>              
             </form>
         </div>
     </div>
