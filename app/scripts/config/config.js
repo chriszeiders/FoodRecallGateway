@@ -31,16 +31,11 @@ require.config({
 
         microplugin: '../vendor/microplugin/microplugin',
 
-        geocomplete: '../vendor/geocomplete/jquery.geocomplete',
+        blockui: '../vendor/blockui/jquery.blockUI',        
 
-        backboneModelBinder: '../vendor/Backbone.ModelBinder/Backbone.ModelBinder',
+        sinon: '../vendor/sinonjs/sinon' ,
 
-        backboneValidateAll: '../vendor/Backbone.validateAll/Backbone.validateAll',
-
-        backboneValidation: './helpers/backboneValidation',
-
-        blockui: '../vendor/blockui/jquery.blockUI'        
-        
+        slider:'../vendor/bootstrap-slider/bootstrap-slider.min'        
     },
 
     // Sets the configuration for your third party scripts that are not AMD compatible
@@ -71,32 +66,24 @@ require.config({
             exports: 'Selectize'
         },
 
-        geocomplete:{
-            deps:['jquery'],
-            exports:'geocomplete'
-        },
-
-        // Backbone.validateAll plugin that depends on Backbone
-        backboneValidateAll: {
-            'deps': ['jquery', 'underscore', 'backbone'],
-            'exports': 'backboneValidateAll'
-        },
-
-        // Backbone.ModelBinder plugin that depends on Backbone
-        backboneModelBinder: {
-            'deps': ['jquery', 'underscore', 'backbone'],
-            'exports': 'backboneModelBinder'
-        },
-
-        backboneValidation: {
-            'deps': ['jquery', 'underscore', 'backbone', 'backboneValidateAll'],
-            'exports': 'backboneValidation'
-        },
 
         blockui: {
             "deps": ["jquery", "jqueryui"],
             "exports": "blockui"
-        }      
+        },
+
+        sinon: {
+            // Depends on underscore/lodash and jQuery
+            'deps': ['jquery'],
+
+            // Exports the global window.Backbone object
+            'exports': 'sinon'
+        },
+
+        slider:{
+            deps: ['jquery', 'bootstrap'],
+            exports: 'slider'
+        }
 
     }
 

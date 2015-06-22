@@ -1,8 +1,8 @@
 // Main application 
 require(['config/config'], function() {
     'use strict';
-    require(['jquery', 'backbone', 'bootstrap', 'config/globals','routers/router', 'views/headerView', 'views/footerView', 'blockui'],
-        function($, Backbone, bootstrap, globals, Router, HeaderView, FooterView, BlockUI) {
+    require(['jquery', 'backbone', 'bootstrap', 'config/globals','selectize', 'slider','routers/router', 'views/headerView', 'views/footerView', 'blockui'],
+        function($, Backbone, bootstrap, globals, selectize, slider,Router,  HeaderView, FooterView, BlockUI) {
 
             $(document).ready(function() {
 
