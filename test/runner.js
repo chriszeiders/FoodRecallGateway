@@ -17,7 +17,7 @@
     });
 
 
-    require(["config/config", "underscore"],
+    require(["config/config", "underscore",'config/globals'],
         function(config, _) {
             //console.log(karma.files);
             var specs = _.chain(karma.files)
