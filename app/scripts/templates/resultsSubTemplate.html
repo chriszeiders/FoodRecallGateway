@@ -14,39 +14,27 @@
 </div>
 <div class="row mbm">
   <div class="col-md-9">
-    <div id="myTabContent" class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="list" aria-labelledby="list-tab">
+    
+        <div id="list">
             <%for (var i=0; i < data.length; i++) { %>
-              <div class="panel panel-info">
-                <div class="panel-heading">
-                  <div class="row">
-                    
-                    <div class="col-md-6">
-                      <h3 class="title">
-                      <a href="#details" id='rn_<%-data[i].recallNumber%>' data-id="<%-data[i].recallNumber%>"><%- data[i].recallNumber%></a>
-                      </h3>
-                    </div>
+              <div class="result-list result-danger-list">
+                  <div class="icon-span">
+                      <i class="fa fa-info"></i><span class="sr-only">Class I</span>
                   </div>
-                </div>
-                <div class="panel-body">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <h4>Product Description: </h4> <%- data[i].productDescription%><br>
-                      <h4>Reason for Recall: </h4> <%- data[i].reasonForRecall%><br>
+               
+                  <div class="text-span">
+                      
+                      <a href="#details" id='rn_<%-data[i].recallNumber%>' data-id="<%-data[i].recallNumber%>"><%- data[i].productDescription%></a>
                       
                     </div>
-                  </div>
                 </div>
-                
-              </div>
+               
             <%}%>
         </div>
-        
-        <div role="tabpanel" class="fade" id="map" aria-labelledby="map-tab" style="width:900px; height:400px;">
-            <div id='mapcanvas' style="width:900px; height:400px;"></div>
-        </div>
-        <!--<div id='mapcanvas' style="width:900px; height:400px;"></div>-->
-    </div>
+  </div>
+  <div class="col-md-3">
+       <p>Insert chart here</p>
+           </div>
   </div>
 </div>
 

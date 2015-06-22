@@ -58,7 +58,7 @@ body{
 }
 
 //results list
-.alert-list {
+.result-list {
     display: table;
     border-radius: $alert-border-radius;
     margin-bottom: $line-height-computed;
@@ -69,8 +69,10 @@ body{
         border-right-width: 1px;
         border-right-style: solid;
         font-size:22px;
-        min-width: 60px;
-          text-align: center;
+        min-width: 30px;
+        text-align: center;
+        vertical-align: middle;
+        color: #333;
     }
     .text-span {
         padding: $alert-padding;
@@ -78,7 +80,7 @@ body{
     }
 }
 
-.alert-danger-list {
+.result-danger-list {
     border-color: $alert-danger-border;
     
     .alert-link {
@@ -87,7 +89,7 @@ body{
     .icon-span {
         background-color: darken($alert-danger-border, 25%);
         border-right-color: darken($alert-danger-border, 35%);
-        color: White;
+        
     }
     .text-span {
         background-color: darken($alert-danger-bg, 5%);
@@ -95,7 +97,7 @@ body{
     }
 }
 
-.alert-warning-list {
+.result-warning-list {
     border-color: $alert-warning-border;
     color: $alert-warning-text;
     .alert-link {
@@ -104,14 +106,14 @@ body{
     .icon-span {
         background-color: darken($alert-warning-border, 15%);
         border-right-color: darken($alert-warning-border, 25%);
-        color: $gray-darker;
+        
     }
     .text-span {
         background-color: $alert-warning-bg;
     }
 }
 
-.alert-caution-list {
+.result-caution-list {
     border-color: $alert-caution-border;
     color: $alert-caution-text;
     .alert-link {
