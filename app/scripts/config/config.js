@@ -17,11 +17,7 @@ require.config({
 
         jquery: '../vendor/jquery/jquery',
 
-        jqueryui: '../vendor/jqueryui/jquery-ui',
-
         underscore: '../vendor/lodash/lodash',
-
-        respond: '../vendor/respond/respond.src',
         
         text: '../vendor/requirejs-text/text',
 
@@ -55,9 +51,6 @@ require.config({
 
         },
 
-        // jQuery UI
-        jqueryui: ['jquery'],
-
         // jQuery Panel Menu plugin that depends on jQuery
         jpanel: ['jquery'],
 
@@ -68,7 +61,7 @@ require.config({
 
 
         blockui: {
-            "deps": ["jquery", "jqueryui"],
+            "deps": ["jquery"],
             "exports": "blockui"
         },
 
