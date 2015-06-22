@@ -1,9 +1,14 @@
 $icon-font-path: "../fonts/";
+
 @import 'app/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
+
 
 @import 'vendor/fontawesome/scss/font-awesome.scss';
 
+
 @import 'variables.scss';
+
+
 
 // global scss
 
@@ -25,6 +30,10 @@ body{
     padding-top: 130px;    
 }
 
+.navbar-inverse .navbar-brand {
+  color: #fff;
+  font-size: 3.6rem;
+}
 //advance search section
 .top_arrow_box {
     position: relative;
