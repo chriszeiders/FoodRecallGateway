@@ -4,9 +4,9 @@ define([
 	'jquery', 'backbone', 'text!templates/main.html', 'text!locale/main.json', 'text!locale/es_mx/main.json',
 	'text!templates/dateRangeTemplate.html','text!templates/distributionPattern.html','text!templates/stateTemplate.html',
 	'text!templates/recallStatusTemplate.html',	'text!templates/foodPyramidTemplate.html','text!templates/foodPathogenTemplate.html',
-	'text!templates/resultsSubTemplate.html','collections/itemCollection', 'collections/recalledFoodCollection'
+	'text!templates/resultsSubTemplate.html','text!templates/detailsTemplate.html','collections/itemCollection', 'collections/recalledFoodCollection'
 ], function($, Backbone, template, content, contentES,DateRangeTemplate, DistributionPatternTemplate, StateTemplate,RecallStatusTemplate,
-	FoodPyramidTemplate, FoodPathogenTemplate,ResultsSubTemplate,ItemCollection, RecalledFoodCollection) {
+	FoodPyramidTemplate, FoodPathogenTemplate,ResultsSubTemplate,DetailsTemplate,ItemCollection, RecalledFoodCollection) {
 	'use strict';
 
 	// Creates a new Backbone View class object
@@ -34,7 +34,8 @@ define([
 		events: {
 			'click button[id="btnSearch"]': 'getResults',
 			'click a[id="prev"]': 'movePrev',
-			'click a[id="next"]': 'moveNext'
+			'click a[id="next"]': 'moveNext',
+			'click a[id^= "rn_"]': 'getDetails'
 		},
 
 		// Renders the view's template to the UI
@@ -137,6 +138,21 @@ define([
 
 			this.$el.find('#' + id).html(this.subTemplate);
 		},	
+		getDetails:function(e){
+			var recallNumber = $(e.target).data('id');
+
+			var recallDetails = this.recalledFoodCollection.where({'recall_number':recallNumber});
+
+			this.detailsTemplate = _.template(DetailsTemplate, 
+				{
+					content: JSON.parse(content),
+					data: recallDetails,
+					reqModel: this.model
+				});
+
+			this.$el.find('#details').html(this.detailsTemplate);
+			
+		},		
 		getResults:function(e){
 			e.preventDefault();
 			this.setModelDataAndNavigate();
