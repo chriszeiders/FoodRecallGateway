@@ -1,0 +1,17 @@
+$alert-caution-bg: #FFD993;
+$alert-caution-border: darken($alert-caution-bg, 15%);
+$alert-caution-text: darken($alert-caution-border, 25%);
+
+// food color variables
+$grain: #ff9900;
+$grain-border: darken($grain, 15%);
+$vegetable: #339966;
+$vegetable-border: darken($vegetable, 15%);
+$fruit: #e00000;
+$fruit-border: darken($fruit, 15%);
+$oil: #cccc00;
+$oil-border: darken($oil, 15%);
+$dairy: #3299FF; //milk, yogurt, cheese
+$dairy-border: darken($dairy, 15%);
+$meat: #663096;
+$meat-border: darken($meat, 15%);

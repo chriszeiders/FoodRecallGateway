@@ -1,9 +1,9 @@
 $icon-font-path: "../fonts/";
 @import 'app/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
 
-
 @import 'vendor/fontawesome/scss/font-awesome.scss';
 
+@import 'variables.scss';
 
 // global scss
 
@@ -57,5 +57,100 @@ body{
     margin-left: -23px;
 }
 
+//results list
+.alert-list {
+    display: table;
+    border-radius: $alert-border-radius;
+    margin-bottom: $line-height-computed;
+    width: 100%;
+    .icon-span {
+        padding: $alert-padding;
+        display: table-cell;
+        border-right-width: 1px;
+        border-right-style: solid;
+        font-size:22px;
+        min-width: 60px;
+          text-align: center;
+    }
+    .text-span {
+        padding: $alert-padding;
+        display: table-cell;
+    }
+}
+
+.alert-danger-list {
+    border-color: $alert-danger-border;
+    
+    .alert-link {
+        color: darken($alert-danger-text, 25%);
+    }
+    .icon-span {
+        background-color: darken($alert-danger-border, 25%);
+        border-right-color: darken($alert-danger-border, 35%);
+        color: White;
+    }
+    .text-span {
+        background-color: darken($alert-danger-bg, 5%);
+        color: $alert-danger-text;
+    }
+}
+
+.alert-warning-list {
+    border-color: $alert-warning-border;
+    color: $alert-warning-text;
+    .alert-link {
+        color: darken($alert-warning-text, 10%);
+    }
+    .icon-span {
+        background-color: darken($alert-warning-border, 15%);
+        border-right-color: darken($alert-warning-border, 25%);
+        color: $gray-darker;
+    }
+    .text-span {
+        background-color: $alert-warning-bg;
+    }
+}
+
+.alert-caution-list {
+    border-color: $alert-caution-border;
+    color: $alert-caution-text;
+    .alert-link {
+        color: darken($alert-caution-text, 20%);
+    }
+    .icon-span {
+        background-color: darken($alert-caution-border, 5%);
+        border-right-color: darken($alert-caution-border, 15%);
+        color: $gray-darker;
+    }
+    .text-span {
+        background-color: lighten($alert-caution-bg, 10%);
+    }
+}
+
+//food Pyramid
+
+.panel-grain {
+    @include panel-variant($grain-border, white, $grain, $grain-border);
+}
+
+.panel-vegetable {
+    @include panel-variant($vegetable-border, white, $vegetable, $vegetable-border);
+}
+
+.panel-fruit {
+    @include panel-variant($fruit-border, white, $fruit, $fruit-border);
+}
+
+.panel-oil {
+    @include panel-variant($oil-border, white, $oil, $oil-border);
+}
+
+.panel-dairy {
+    @include panel-variant($dairy-border, white, $dairy, $dairy-border);
+}
+
+.panel-meat {
+    @include panel-variant($meat-border, white, $meat, $meat-border);
+}
 
 @import 'helper.scss';
