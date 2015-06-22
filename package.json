@@ -1,0 +1,58 @@
+{
+  "name": "farmersmarketbydrt",
+  "version": "0.0.1",
+  "author": "Yonas Robi",
+  "description": "farmersmarketbydrt",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "test/",
+    "start": "node app.js",
+    "postinstall": "node_modules/.bin/bower install && node_modules/.bin/grunt build"
+  },
+  "keywords": [
+    "Application",
+    "Grunt",
+    "SinglePage",
+    "Backbone",
+    "Require",
+    "Lodash",
+    "Bootstrap",
+    "Modernizr"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "bower": "~1.4.1",
+    "grunt-cli": "~0.1.13",
+    "grunt": "~0.4.1",
+    "express": "~4.12.4",
+    "connect-livereload": "~0.3.2",
+    "jshint-stylish": "~0.1.5",
+    "karma": "~0.10.10",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-connect": "~0.6.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-uglify": "~0.3.1",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-contrib-imagemin": "~0.5.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-usemin": "~0.1.12",
+    "grunt-rev": "~0.1.0",
+    "grunt-open": "~0.2.3",
+    "grunt-requirejs": "~0.4.0",
+    "grunt-sass": "~1.0.0",
+    "grunt-karma": "~0.6.2",
+    "grunt-karma-coveralls": "~2.3.0",
+    "karma-coverage": "~0.2.4",
+    "grunt-plato": "~1.0.0",
+    "grunt-docco": "~0.3.3",
+    "grunt-connect-proxy": "0.1.10",
+    "grunt-bower-task": "~0.4.0",
+    "load-grunt-tasks": "~0.3.0",
+    "time-grunt": "~0.2.8"
+  },
+  "devDependencies": {
+
+  }
+}
