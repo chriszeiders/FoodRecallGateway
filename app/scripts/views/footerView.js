@@ -9,7 +9,7 @@ define([
 	var FooterView = Backbone.View.extend({
 
 		// The DOM Element associated with this view
-		el: '#main-content',
+		el: 'footer',
 
 		// The Model associated with this view
 		model: '',
