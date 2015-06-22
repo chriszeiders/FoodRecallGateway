@@ -9,7 +9,7 @@ define([
 	var HeaderView = Backbone.View.extend({
 
 		// The DOM Element associated with this view
-		el: '#main-content',
+		el: 'header',
 
 		// The Model associated with this view
 		model: '',
