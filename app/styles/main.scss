@@ -1,0 +1,111 @@
+$icon-font-path: "../fonts/";
+@import 'app/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
+
+@import 'vendor/fontawesome/scss/font-awesome.scss';
+.hidden {
+    display: none!important;
+    visibility: hidden!important;
+}
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+/* Space out content a bit */
+
+body {
+    padding-bottom: 20px;
+}
+/* Everything but the jumbotron gets side spacing for mobile first views */
+
+.header,
+.marketing,
+.footer {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+/* Custom page header */
+
+header {
+    .navbar {
+        border-radius: 0;
+    }
+    .navbar-inverse .navbar-brand {
+        color: #fff;
+        font-size: 3rem;
+        height: auto;
+    }
+    .tag-line {
+        font-size: 1.5rem;
+        display: block;
+        clear: left;
+        font-style: italic;
+        line-height: 1.5;
+    }
+}
+
+#searchContainer {
+    .input-group, .input-group-btn {
+        border-radius: 0;
+    }
+}
+
+.top_arrow_box {
+    position: relative;
+    padding: 20px;
+    border: 2px solid $brand-primary;
+    border-radius: 5px;
+}
+.top_arrow_box:after, .top_arrow_box:before {
+    bottom: 100%;
+    left: 40%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.top_arrow_box:after {
+    border-bottom-color: white;
+    border-width: 20px;
+    margin-left: -20px;
+}
+.top_arrow_box:before {
+    border-bottom-color: $brand-primary;
+    border-width: 23px;
+    margin-left: -23px;
+}
+
+.container-flex{
+    display: flex;
+    align-items: baseline;     
+}
+
+.distance{
+    
+}
+/* Responsive: Portrait tablets and up */
+
+@media screen and (min-width: 768px) {
+    /* Remove the padding we set earlier */
+    
+    .header,
+    .marketing,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /* Space out the masthead */
+    
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    
+    
+}
+
+@import 'helper.scss';

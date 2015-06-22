@@ -1,0 +1,47 @@
+{
+  "name": "farmersmarketbydrt",
+  "version": "0.0.1",
+  "dependencies": {
+  	"jquery": "~1.11.0",
+    "lodash": "~2.4.1",
+    "backbone": "~1.1.0",
+    "requirejs": "~2.1.10",
+    "requirejs-text": "~2.0.10",
+    "modernizr": "~2.7.1",
+    "bootstrap": "~3.1.1",
+    "jqueryui": "~1.10.4"
+  },
+    "devDependencies": {},
+    "exportsOverride": {
+      "backbone": {
+        "": "backbone.js"
+      },
+      "bootstrap": {
+        "": "dist/js/bootstrap.js"
+      },
+      "jpanelmenu": {
+        "": "jquery.jpanelmenu.js"
+      },
+      "jquery": {
+        "": "dist/jquery.js"
+      },
+      "jqueryui": {
+        "": "ui/jquery-ui.js"
+      },
+      "lodash": {
+        "": "dist/lodash.js"
+      },
+      "modernizr": {
+        "": "modernizr.js"
+      },
+      "requirejs": {
+        "": "require.js"
+      },
+      "requirejs-text": {
+        "": "text.js"
+      },
+      "respond": {
+        "": "dest/respond.src.js"
+      }
+  }
+}
