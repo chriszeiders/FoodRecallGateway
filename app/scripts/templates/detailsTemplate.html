@@ -3,23 +3,58 @@
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="well well-sm">
-                            <p>"Recall Number": <%- data[0].attributes.recallNumber %><br>
-                            "product_type": "Food"<br>
-                          "reason_for_recall": <%- data[0].attributes.reasonForRecall %><br>
-                          "product_description":<%- data[0].attributes.productDescription %><br>
-                          "classification": <%- data[0].attributes.classification %><br>
-                          "code_info": <%- data[0].attributes.codeInfo %><br>                          
-                          "status": <%- data[0].attributes.status %><br>
-                          "distribution_pattern": <%- data[0].attributes.distributionPattern %><br>
-                          "product_quantity": <%- data[0].attributes.productQuantity %><br>
-                          "recall_initiation_date": <%- data[0].attributes.distributionPattern %><br>
-                          "recalling_firm": <%- data[0].attributes.recallingFirm %><br>
-                          "city": <%- data[0].attributes.city %><br>
-                          "state": <%- data[0].attributes.state %><br>
-                          "country":<%- data[0].attributes.country %><br>  
-                          "report_date": <%- data[0].attributes.reportDate %><br>
-                          "voluntary_mandated": <%- data[0].attributes.voluntaryMandated %><br>
-                          "initial_firm_notification": <%- data[0].attributes.initialFirmNotification %></p>
+                           
+                           <dl class="dl-horizontal">
+                                <dt>Recall Number</dt>
+                                <dd><%- data[0].attributes.recallNumber %></dd>
+
+                                <dt>product description</dt>
+                                <dd><%- data[0].attributes.productDescription %><br></dd>
+
+                                <dt>status</dt>
+                                <dd><%- data[0].attributes.status %></dd>
+
+                                <dt>classification</dt>
+                                <dd><%- data[0].attributes.classification %></dd>
+                                
+
+                                <dt>Reason for recall</dt>
+                                <dd><%- data[0].attributes.reasonForRecall %></dd>
+                                
+
+                                <dt>Distribution pattern</dt>
+                                <dd><%- data[0].attributes.distributionPattern %></dd>
+
+
+
+                                <dt>Product quantity</dt>
+                                <dd><%- data[0].attributes.productQuantity %></dd>
+
+                                <dt>Recall initiation date</dt>
+                                <dd><%- data[0].attributes.distributionPattern %></dd>
+                                
+                                <dt>city</dt>
+                                <dd><%- data[0].attributes.city %></dd>
+
+                                <dt>state</dt>
+                                <dd><%- data[0].attributes.state %></dd>
+                                
+                                <dt>country</dt>
+                                <dd><%- data[0].attributes.country %></dd>
+                                
+                                <dt>voluntary mandated</dt>
+                                <dd><%- data[0].attributes.voluntaryMandated %></dd>
+
+                                <dt>Report Date</dt>
+                                <dd><%- data[0].attributes.reportDate %></dd>
+
+                                <dt>Initial Firm Notification</dt>
+                                <dd><%- data[0].attributes.initialFirmNotification %></dd>
+                                
+                                <dt>Code Info</dt>
+                                <dd><%- data[0].attributes.codeInfo %></dd>
+                            </dl>
+
                         </div>
                         <!-- div to hold tooltip. -->
                         <div class="svg-container">
