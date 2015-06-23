@@ -89,7 +89,7 @@ body{
     }
 }
 
-.result-danger-list {
+.class-i {
     border-color: $alert-danger-border;
     
     .alert-link {
@@ -106,7 +106,7 @@ body{
     }
 }
 
-.result-warning-list {
+.class-ii {
     border-color: $alert-warning-border;
     color: $alert-warning-text;
     .alert-link {
@@ -122,7 +122,7 @@ body{
     }
 }
 
-.result-caution-list {
+.class-iii {
     border-color: $alert-caution-border;
     color: $alert-caution-text;
     .alert-link {

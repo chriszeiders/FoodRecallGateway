@@ -17,9 +17,9 @@
     
         <div id="list">
             <%for (var i=0; i < data.length; i++) { %>
-              <div class="result-list result-danger-list">
+              <div class="result-list <%-(data[i].classification).toLowerCase().replace(' ', '-') %>">
                   <div class="icon-span">
-                      <i class="fa fa-info"></i><span class="sr-only">Class I</span>
+                      <i class="fa fa-info"></i><span class="sr-only"><%-data[i].classification %></span>
                   </div>
                
                   <div class="text-span">

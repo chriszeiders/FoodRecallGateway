@@ -4,9 +4,10 @@ define([
 	'jquery', 'backbone', 'text!templates/main.html', 'text!locale/main.json', 'text!locale/es_mx/main.json',
 	'text!templates/dateRangeTemplate.html','text!templates/distributionPattern.html','text!templates/stateTemplate.html',
 	'text!templates/recallStatusTemplate.html',	'text!templates/foodPyramidTemplate.html','text!templates/foodPathogenTemplate.html',
-	'text!templates/resultsSubTemplate.html','text!templates/detailsTemplate.html','collections/itemCollection', 'collections/recalledFoodCollection'
+	'text!templates/resultsSubTemplate.html','text!templates/detailsTemplate.html','collections/itemCollection', 
+	'collections/recalledFoodCollection', 'd3', 'helpers/uStates'
 ], function($, Backbone, template, content, contentES,DateRangeTemplate, DistributionPatternTemplate, StateTemplate,RecallStatusTemplate,
-	FoodPyramidTemplate, FoodPathogenTemplate,ResultsSubTemplate,DetailsTemplate,ItemCollection, RecalledFoodCollection) {
+	FoodPyramidTemplate, FoodPathogenTemplate,ResultsSubTemplate,DetailsTemplate,ItemCollection, RecalledFoodCollection, d3, uStates) {
 	'use strict';
 
 	// Creates a new Backbone View class object
@@ -151,8 +152,41 @@ define([
 				});
 
 			this.$el.find('#details').html(this.detailsTemplate);
+
+			/////////////////////////////////////
+			var sampleData = {}; /* Sample random data. */
+            ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
+                "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH",
+                "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT",
+                "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN",
+                "WI", "MO", "AR", "OK", "KS", "LS", "VA"
+            ]
+            .forEach(function(d) {
+                var low = Math.round(100 * Math.random()),
+                    mid = Math.round(100 * Math.random()),
+                    high = Math.round(100 * Math.random());
+                sampleData[d] = {
+                    low: d3.min([low, mid, high]),
+                    high: d3.max([low, mid, high]),
+                    avg: Math.round((low + mid + high) / 3),
+                    color: d3.interpolate("#ffffcc", "#800026")(low / 100)
+                };
+            });
+
+            /* draw states on id #statesvg */
+            uStates.draw("#statesvg", sampleData, this.tooltipHtml);
+            ///////////
 			
-		},		
+		},	
+
+		tooltipHtml:function(n, d) { /* function to create html content string in tooltip div. */
+                return "<h4>" + n + "</h4><table>" +
+                    "<tr><td>Low</td><td>" + (d.low) + "</td></tr>" +
+                    "<tr><td>Average</td><td>" + (d.avg) + "</td></tr>" +
+                    "<tr><td>High</td><td>" + (d.high) + "</td></tr>" +
+                    "</table>";
+        },
+
 		getResults:function(e){
 			e.preventDefault();
 			this.setModelDataAndNavigate();
