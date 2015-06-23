@@ -1,1 +1,11 @@
 window.gblResults = 'https://api.fda.gov/food/enforcement.json?';
+window.gblSalmonellaCount ='https://api.fda.gov/food/enforcement.json?search=reason_for_recall:salmonella&count=classification.exact';
+window.gblNorovirusCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:norovirus&count=classification.exact';
+window.gblListeriaCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:listeria&count=classification.exact';
+window.gblEcoliCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:e.coli+e.%20coli&count=classification.exact';
+window.gblGrainCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:grain+rice+wheat&count=classification.exact';
+window.gblDairyCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:milk+cheese+yogurt&count=classification.exact';
+window.gblVegetableCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:vegetable+zucchini+carrot+lettuce+spinach+salad&count=classification.exact';
+window.gblFruitCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:fruit+apple+peach&count=classification.exact';
+window.gblMeatCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:beef+pork+chicken+egg+poultry+fish&count=classification.exact';
+window.gblOilCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:dressing+oil+butter&count=classification.exact';
