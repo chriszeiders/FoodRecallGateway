@@ -1,14 +1,14 @@
 // MainViews.spec.js
 // ----------
 define([
-	'jquery', 'backbone', 'routers/router', 'sinon','selectize','views/mainView', 
+	'jquery', 'backbone', 'routers/router', 'sinon','selectize','slider','views/mainView', 
 	'text!templates/main.html', 
 	'text!locale/main.json', 
 	'text!locale/es_mx/main.json',
 	'models/requestModel',
 	'text!templates/recallStatusTemplate.html',
 	'collections/itemCollection'
-], function($, Backbone, Router, sinon, selectize,MainView, template, content, contentES,RequestModel,
+], function($, Backbone, Router, sinon, selectize, slider, MainView, template, content, contentES,RequestModel,
 	RecallStatusTemplate, ItemCollection ) {
 	'use strict';
 	var statusResults =[{
@@ -29,8 +29,9 @@ define([
 			this.model.set({
 				'skip':25,
 				'searchTerms':'cheese',
-				'recallStatus':'ongoing',
-				'distributionPattern':'OH,CA'
+				'recallStatus':'Ongoing',
+				'distributionPattern':'OH,CA',
+				'dateRange':[2012,2015]
 			});
 			// Instantiates a new View instance
 			this.view = new MainView({
@@ -46,10 +47,6 @@ define([
 
 			expect(this.view).toBeDefined();
 
-		});
-		//Load the recall status template
-		it("should load the recall status template", function() {
-			this.view.loadTemplate('recallStatusSection', RecallStatusTemplate, statusResults, this.model);
 		});
 
 		it('should display the results', function(){

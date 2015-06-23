@@ -22,6 +22,8 @@ define([
 
 		stateList: '',
 
+		dateRange: [2012,2015],
+
 		totalCount:0,
 		// View constructor
 		initialize: function(options) {
@@ -36,7 +38,8 @@ define([
 			'click button[id="btnSearch"]': 'getResults',
 			'click a[id="prev"]': 'movePrev',
 			'click a[id="next"]': 'moveNext',
-			'click a[id^= "rn_"]': 'getDetails'
+			'click a[id^= "rn_"]': 'getDetails',
+			'change #fromDate, #toDate': 'setDateRange'
 		},
 
 		// Renders the view's template to the UI
@@ -48,7 +51,8 @@ define([
 			});
 
 			this.stateTemplate = _.template(StateTemplate,{});
-			this.distPatternTemplate = _.template(DistributionPatternTemplate,{});
+			this.dateRangeTemplate = _.template(DateRangeTemplate,{});
+			this.recallStatusTemplate = _.template(RecallStatusTemplate,{});
 			// Dynamically updates the UI with the view's template
 			this.$el.html(this.template);	
 
@@ -77,7 +81,9 @@ define([
 	               self.searchTerms = value;
 	          	}
 	          });
-			this.$el.find('#select-recallStatus').selectize({onChange: function(value) {
+			this.$el.find('#select-recallStatus').selectize({
+				plugins: ['remove_button'],
+				onChange: function(value) {
                self.recallStatuses = value;
           	}});
 
@@ -90,7 +96,9 @@ define([
                self.stateList = value;
           		}
           	});
-            this.$el.find("#dateRange").slider({});
+            /*this.$el.find("#dateRange").slider().on('slideStop', function(ev){
+				       self.dateRange = $('#dateRange').data('slider').getValue();			    
+				});*/
 			// Maintains chainability
 			return this;
 
@@ -101,43 +109,37 @@ define([
 			this.recalledFoodCollection.url = this.model.generateURL();
 
 	            var self = this;
-	            this.recalledFoodCollection.fetch().done(function(){
-		            //Display the results 
-		            self.$el.find('#resultsContainer').html('');
-
-		            self.totalCount = self.recalledFoodCollection.totalCount;
-
-		            self.loadTemplate('resultsContainer',ResultsSubTemplate,self.recalledFoodCollection.toJSON(),self.recalledFoodCollection.totalCount,self.model);
-	            });			
-
+	           	this.$el.find('#results').html('');
+	
+                this.recalledFoodCollection.fetch({
+                    success: function() {
+                        self.totalCount = self.recalledFoodCollection.totalCount;
+                        self.loadTemplate();
+                    },
+                    error: function() {
+                        self.totalCount = 0;
+                        self.loadTemplate();
+                    }
+                });
 		},			
 		loadAdvancedSearch:function(){
-			this.loadCollection(window.gblRecallStatusList,'recallStatusSection', RecallStatusTemplate,this.recallStatusCollection,this.model);
-			this.$el.find('#distributionPatternSection').html(this.distPatternTemplate);	
-			this.$el.find('#stateSection').html(this.stateTemplate);		
-		},
-		loadCollection: function(selectServiceURL, sectionId, templateName, collectionName, reqModel) {
-			collectionName = new ItemCollection();
-			//collectionName.url = (Helper.getEnvironment() === Constants.prodEnv) ? window.gblProdServiceURL : window.gblDevServiceURL + '&' + selectServiceURL;
-			collectionName.url = selectServiceURL;
-			var self = this;
-			collectionName.fetch({
-				async: false
-			}).done(function() {
-				self.loadTemplate(sectionId, templateName, collectionName.sort().toJSON(), collectionName.length, reqModel);
-			});
+			this.$el.find('#dateRangeSection').html(this.dateRangeTemplate);	
+			this.$el.find('#stateSection').html(this.stateTemplate);	
+			this.$el.find('#recallStatusSection').html(this.recallStatusTemplate);	
 		},
 		//load the respective templates
-		loadTemplate: function(id, templateName, collectionOfData, maxCount, reqModel) {
+		loadTemplate: function() {
 
-			this.subTemplate = _.template(templateName, {
-				content: JSON.parse(content),
-				data: collectionOfData,
-				reqModel: reqModel,
-				maxCount: maxCount
-			});
+				this.subTemplate = _.template(ResultsSubTemplate, {
+					content: JSON.parse(content),
+					data: this.recalledFoodCollection.toJSON(),
+					reqModel: this.model,
+					maxCount: this.totalCount
+				});
 
-			this.$el.find('#' + id).html(this.subTemplate);
+				this.$el.find('#results').html(this.subTemplate);
+
+
 		},	
 		getDetails:function(e){
 			var recallNumber = $(e.target).data('id');
@@ -213,12 +215,21 @@ define([
         	this.model.set('skip', skipValue);
         	this.displayResults();        	
         },
+        setDateRange:function(e){
+        	if(e.target.id == "toDate"){
+        		this.dateRange[1]= parseInt($(e.target).val());
+        	}
+        	if(e.target.id == "fromDate"){
+        		this.dateRange[0]= parseInt($(e.target).val());
+        	}
+        },
 	    setModelDataAndNavigate: function() {
 			var data = {
 				'searchTerms': (this.searchTerms) ? (_.isArray(this.searchTerms) ? this.searchTerms.join(',') : this.searchTerms) : '',
 				'distributionPattern': (this.stateList) ? (_.isArray(this.stateList) ? this.stateList.join(',') : this.stateList) : '',
 				'recallStatus': (this.recallStatuses) ? (_.isArray(this.recallStatuses) ? this.recallStatuses.join(',') : this.recallStatuses) : '',
-				'skip':this.model.get('skip')
+				'skip':this.model.get('skip'),
+				'dateRange': this.dateRange
 			};
 			this.model.clearModel();
 			this.model.set(data);

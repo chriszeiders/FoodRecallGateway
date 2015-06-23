@@ -7,7 +7,7 @@ require(['config/config'], function() {
             $(document).ready(function() {
 
                 $.blockUI.defaults.message = "<h1>Please wait...</h1>";
-                $(document).ajaxStart($.blockUI).ajaxSuccess($.unblockUI);
+                $(document).ajaxStart($.blockUI).ajaxSuccess($.unblockUI).ajaxError($.unblockUI);
                 
             	new HeaderView();
     			new FooterView();
