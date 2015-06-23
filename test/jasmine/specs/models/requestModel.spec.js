@@ -29,12 +29,13 @@ define([
 		})
 		it('should generate the correct url with recall status and distribution patterm', function(){
 			this.model.set({
-				'skip':25,
+				'skip':0,
 				'searchTerms':'cheese',
-				'recallStatus':'ongoing',
-				'distributionPattern':'OH,CA'
+				'recallStatus':'Ongoing',
+				'distributionPattern':'OH,CA',
+				'dateRange':[2012,2015]
 			});
-			expect(this.model.generateURL()).toEqual('https://api.fda.gov/food/enforcement.json?search=product_description:cheese+AND+recall_status=ongoing+AND+distribution_pattern=nationwide+OH+CA&skip=25&limit=5')
+			expect(this.model.generateURL()).toEqual('https://api.fda.gov/food/enforcement.json?search=reason_for_recall:cheese+AND+status=Ongoing+AND+distribution_pattern=nationwide+OH+CA+AND+report_date:[20120101+TO+20150530]&skip=0&limit=5')
 		})
 
 		// Runs after every model spec
