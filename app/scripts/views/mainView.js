@@ -5,9 +5,9 @@ define([
 	'text!templates/dateRangeTemplate.html','text!templates/distributionPattern.html','text!templates/stateTemplate.html',
 	'text!templates/recallStatusTemplate.html',	'text!templates/foodPyramidTemplate.html','text!templates/foodPathogenTemplate.html',
 	'text!templates/resultsSubTemplate.html','text!templates/detailsTemplate.html','collections/itemCollection', 
-	'collections/recalledFoodCollection', 'd3', 'helpers/uStates'
+	'collections/recalledFoodCollection', 'd3', 'c3', 'helpers/uStates'
 ], function($, Backbone, template, content, contentES,DateRangeTemplate, DistributionPatternTemplate, StateTemplate,RecallStatusTemplate,
-	FoodPyramidTemplate, FoodPathogenTemplate,ResultsSubTemplate,DetailsTemplate,ItemCollection, RecalledFoodCollection, d3, uStates) {
+	FoodPyramidTemplate, FoodPathogenTemplate,ResultsSubTemplate,DetailsTemplate,ItemCollection, RecalledFoodCollection, d3, c3, uStates) {
 	'use strict';
 
 	// Creates a new Backbone View class object
@@ -115,12 +115,31 @@ define([
                     success: function() {
                         self.totalCount = self.recalledFoodCollection.totalCount;
                         self.loadTemplate();
+
+
+                     c3.generate({
+					    bindto: '#chart',
+					    data: {
+					        columns: [
+					           ['Class I', 40],
+					             ['Class II', 30],
+					             ['Class III', 70]
+					        ],
+					        type : 'donut'
+					    },
+					    donut: {
+					        title: "Recall Classification"
+					    }
+					});
+
+
                     },
                     error: function() {
                         self.totalCount = 0;
                         self.loadTemplate();
                     }
                 });
+
 		},			
 		loadAdvancedSearch:function(){
 			this.$el.find('#dateRangeSection').html(this.dateRangeTemplate);	

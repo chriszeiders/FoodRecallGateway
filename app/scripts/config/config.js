@@ -33,6 +33,8 @@ require.config({
 
         d3 : '../vendor/d3/d3',
 
+        c3 : '../vendor/c3/c3',
+
         slider:'../vendor/bootstrap-slider/bootstrap-slider.min'        
     },
 
