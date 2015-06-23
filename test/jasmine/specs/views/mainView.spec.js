@@ -48,10 +48,6 @@ define([
 			expect(this.view).toBeDefined();
 
 		});
-		//Load the recall status template
-		it("should load the recall status template", function() {
-			this.view.loadTemplate('recallStatusSection', RecallStatusTemplate, statusResults, this.model);
-		});
 
 		it('should display the results', function(){
 			this.view.displayResults();
