@@ -154,6 +154,14 @@ define([
 			this.$el.find('#details').html(this.detailsTemplate);
 
 			/////////////////////////////////////
+			var mapColor = 'rgb(251, 247, 199)';
+			if($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class i'){
+				mapColor = 'rgb(131, 5, 41)';
+			}
+			else if($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class ii'){
+				mapColor = 'rgb(211, 166, 146)';
+			}
+			
 			var sampleData = {}; /* Sample random data. */
             ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
                 "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH",
@@ -169,7 +177,8 @@ define([
                     low: d3.min([low, mid, high]),
                     high: d3.max([low, mid, high]),
                     avg: Math.round((low + mid + high) / 3),
-                    color: d3.interpolate("#ffffcc", "#800026")(low / 100)
+                    //color: d3.interpolate("#ffffcc", "#800026")(low / 100)
+                    color: mapColor
                 };
             });
 
