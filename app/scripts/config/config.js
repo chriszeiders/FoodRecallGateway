@@ -29,7 +29,9 @@ require.config({
 
         blockui: '../vendor/blockui/jquery.blockUI',        
 
-        sinon: '../vendor/sinonjs/sinon' ,
+        sinon: '../vendor/sinonjs/sinon',
+
+        d3 : '../vendor/d3/d3',
 
         slider:'../vendor/bootstrap-slider/bootstrap-slider.min'        
     },
