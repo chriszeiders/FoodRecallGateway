@@ -13,52 +13,57 @@ define([
 
 		// Default values for all of the Model attributes
 		defaults: {
-			searchTerms:'',
-			distributionPattern:'',
-			recallStatus:'',
-			dateRange:'',
-			skip:0
+			searchTerms: '',
+			distributionPattern: '',
+			recallStatus: '',
+			dateRange: '',
+			skip: 0
 		},
 
 		clearModel: function() {
 			this.set({
-				searchTerms:'',
-				distributionPattern:'',
-				recallStatus:'',
-				dateRange:'',
-				skip:0				
+				searchTerms: '',
+				distributionPattern: '',
+				recallStatus: '',
+				dateRange: '',
+				skip: 0
 			});
 		},
 		generateURL: function() {
 			var serviceURL = '';
 			serviceURL = window.gblResults
 
-			if (this.get('searchTerms') || this.get('recallStatus') || this.get('distributionPattern') || this.get('dateRange')){
+			if (this.get('searchTerms') || this.get('recallStatus') || this.get('distributionPattern') || this.get('dateRange')) {
 				serviceURL = serviceURL + 'search=';
 
-				if(this.get('searchTerms')){
-				 	serviceURL = serviceURL + 'reason_for_recall:' + this.get('searchTerms').replace(/,/g,'+');
+				if (this.get('searchTerms')) {
+					serviceURL = serviceURL + 'reason_for_recall:' + this.get('searchTerms').replace(/,/g, '+');
 				}
-				if(this.get('recallStatus')){
-					serviceURL = serviceURL + ((this.get('searchTerms'))?'+AND+': '' ) + 'status=' + this.get('recallStatus').replace(/,/g,'+');
+				if (this.get('recallStatus')) {
+					serviceURL = serviceURL + ((this.get('searchTerms')) ? '+AND+' : '') + 'status=' + this.get('recallStatus').replace(/,/g, '+');
 				}
-				if(this.get('distributionPattern')){
-					serviceURL = serviceURL + ((this.get('searchTerms') || this.get('recallStatus'))?'+AND+': '' ) + 'distribution_pattern=nationwide+' + this.get('distributionPattern').replace(/,/g,'+');
+				if (this.get('distributionPattern')) {
+					serviceURL = serviceURL + ((this.get('searchTerms') || this.get('recallStatus')) ? '+AND+' : '') + 'distribution_pattern=nationwide+' + this.get('distributionPattern').replace(/,/g, '+');
 				}
-				if(this.get('dateRange')){
-					serviceURL = serviceURL + ((this.get('searchTerms') || this.get('recallStatus') || this.get('distributionPattern'))?'+AND+': '' ) + 'report_date:['+ this.get('dateRange')[0] +'0101+TO+' + this.get('dateRange')[1] + ((this.get('dateRange')[1]===2015)? '0530':'0101') + ']';
+				if (this.get('dateRange')) {
+					serviceURL = serviceURL + ((this.get('searchTerms') || this.get('recallStatus') || this.get('distributionPattern')) ? '+AND+' : '') + 'report_date:[' + this.get('dateRange')[0] + '0101+TO+' + this.get('dateRange')[1] + ((this.get('dateRange')[1] === 2015) ? '0530' : '0101') + ']';
 				}
 				serviceURL = serviceURL + '&';
 
 			}
 
 
-				serviceURL = serviceURL + 'skip='+ ((this.get('skip') === undefined || isNaN(this.get('skip')))?0:this.get('skip')) + '&limit=5'
-			
+			serviceURL = serviceURL + 'skip=' + ((this.get('skip') === undefined || isNaN(this.get('skip'))) ? 0 : this.get('skip')) + '&limit=5'
+
 			return serviceURL
-		}		
+		},
+
+		generateCountURL: function() {
+			return window.gblResults + 'search=reason_for_recall:' + this.get('searchTerms') + '&count=classification.exact';
+		}
+
 	});
- 
+
 	// Returns the Model class
 	return RequestModel;
 });
