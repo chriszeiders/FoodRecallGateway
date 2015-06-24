@@ -112,6 +112,7 @@ define([
 				success: function() {
 					self.totalCount = self.recalledFoodCollection.totalCount;
 					self.loadTemplate();
+					self.displayResultsChart();
 				},
 				error: function() {
 					self.totalCount = 0;
@@ -122,31 +123,14 @@ define([
 		},
 		displayResultsChart:function(){
 				//this.model.set({'searchTerms': this.model.get('searchTerms').replace(',', ' ')});
-				this.termsCollection = new TermsCollection();
-				this.termsCollection.url = this.model.generateCountURL(); 
+				this.resultsChartCollection = new TermsCollection();
+				this.resultsChartCollection.url = this.model.generateCountURL(); 
 
 				var self = this;
-				this.termsCollection.fetch({
+				this.resultsChartCollection.fetch({
 						success: function() {
-							self.termsCollection.sort();
-							var chart = c3.generate({
-								bindto: '#chart',
-								data: {
-									columns: self.getChartColumns(self.termsCollection),
-									type: 'donut'
-								},
-								donut: {
-									title: "Recall Classification"
-								}
-							});
-
-							chart.data.colors({						
-								
-								classI: '#d595a0',
-								classII: '#d27607',
-								classIII: '#F5D60A'
-							});
-
+							self.resultsChartCollection.sort();
+							self.loadChart(self.resultsChartCollection);
 						}
 					});			
 		},
@@ -168,6 +152,25 @@ define([
 			this.$el.find('#dateRangeSection').html(this.dateRangeTemplate);
 			this.$el.find('#stateSection').html(this.stateTemplate);
 			this.$el.find('#recallStatusSection').html(this.recallStatusTemplate);
+		},
+		loadChart:function(chartCollection){
+			var chart = c3.generate({
+								bindto: '#chart',
+								data: {
+									columns: this.getChartColumns(chartCollection),
+									type: 'donut'
+								},
+								donut: {
+									title: "Recall Classification"
+								}
+							});
+
+							chart.data.colors({						
+								
+								classI: '#d595a0',
+								classII: '#d27607',
+								classIII: '#F5D60A'
+							});
 		},
 		loadFoodRecallCountDetails:function(){
 			//Pathogen recall count
@@ -284,12 +287,22 @@ define([
 			var skipValue = (this.model.get('skip') === this.totalCount) ? this.totalCount : (this.model.get('skip') + 5);
 			this.model.set('skip', skipValue);
 			this.displayResults();
+			if(this.resultsChartCollection){
+				this.loadChart(this.resultsChartCollection);
+			}else{
+				this.displayResultsChart();
+			}
 		},
 		movePrev: function(e) {
 			e.preventDefault();
 			var skipValue = (this.model.get('skip') === 0) ? 0 : (this.model.get('skip') - 5);
 			this.model.set('skip', skipValue);
 			this.displayResults();
+			if(this.resultsChartCollection){
+				this.loadChart(this.resultsChartCollection);
+			}else{
+				this.displayResultsChart();
+			}			
 		},
 
 		setDateRange: function(e) {
@@ -311,7 +324,7 @@ define([
 			this.model.clearModel();
 			this.model.set(data);
 			this.displayResults();
-			this.displayResultsChart();
+			
 		}
 	});
 
