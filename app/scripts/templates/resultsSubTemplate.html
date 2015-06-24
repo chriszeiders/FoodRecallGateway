@@ -1,5 +1,5 @@
 <hr>
-<div class="row mbm">
+<div id="results" class="row mbm"  tabindex="-1">
     <div class="col-md-6">
 		  <h2 id="numHeading" class="man">Number of result found <%-maxCount%></h2>    
     </div>
@@ -27,7 +27,7 @@
                
                   <div class="text-span">
                       
-                      <a href="#details" class="alert-link" id='rn_<%-data[i].recallNumber%>' data-id="<%-data[i].recallNumber%>"><%- data[i].productDescription%></a>
+                      <a href="javascript:void(0) class="alert-link" id='rn_<%-data[i].recallNumber%>' data-id="<%-data[i].recallNumber%>"><%- data[i].productDescription%></a>
                       
                     </div>
                 </div>

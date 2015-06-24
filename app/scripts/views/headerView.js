@@ -27,7 +27,7 @@ define([
 
 		// View Event Handlers
 		events: {
-
+			'click a[id^="anchor_"]': 'redirectToAnchor'
 		},
 
 		// Renders the view's template to the UI
@@ -44,7 +44,13 @@ define([
 			// Maintains chainability
 			return this;
 
-		}
+		},
+		redirectToAnchor: function(e) {
+            e.preventDefault();
+            var anchorTarget = '#' + $(e.target).data('id');
+            $(anchorTarget).get(0).scrollIntoView();
+            $(anchorTarget).focus();
+        },		
 
 	});
 

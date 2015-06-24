@@ -41,6 +41,7 @@ define([
 			'click a[id="next"]': 'moveNext',
 			'click a[id^= "rn_"]': 'getDetails',
 			'change #fromDate, #toDate': 'setDateRange'
+
 		},
 
 		// Renders the view's template to the UI
@@ -59,13 +60,13 @@ define([
 
 			//loading the food pyramid and food Pathogen section
 			this.foodPyramidTemplate = _.template(FoodPyramidTemplate, {});
-			this.$el.find('#foodInfo').html(this.foodPyramidTemplate);
+			this.$el.find('#foodInfoSection').html(this.foodPyramidTemplate);
 
 			this.foodPathogenTemplate = _.template(FoodPathogenTemplate, {});
-			this.$el.find('#foodPathogens').html(this.FoodPathogenTemplate);
+			this.$el.find('#foodPathogensSection').html(this.FoodPathogenTemplate);
 			//load the advanced search items
 			this.loadAdvancedSearch();
-
+			this.loadFoodPathogenDetails();
 			var self = this;
 			this.$el.find('#select-fooditem').selectize({
 				maxItems: 3,
@@ -115,7 +116,7 @@ define([
 
 
 			var self = this;
-			this.$el.find('#results').html('');
+			this.$el.find('#resultsSection').html('');
 
 			this.recalledFoodCollection.fetch({
 				success: function() {
@@ -161,6 +162,19 @@ define([
 			this.$el.find('#stateSection').html(this.stateTemplate);
 			this.$el.find('#recallStatusSection').html(this.recallStatusTemplate);
 		},
+		loadFoodPathogenDetails:function(){
+			this.salmonellaCollection = new TermsCollection();
+			this.salmonellaCollection.url = window.gblSalmonellaCount; //
+
+			this.norovirusCollection = new TermsCollection();
+			this.norovirusCollection.url = window.gblNorovirusCount; 
+
+			this.listeriaCollection = new TermsCollection();
+			this.listeriaCollection.url = window.gblListeriaCount; 
+
+			this.ecoliCollection = new TermsCollection();
+			this.ecoliCollection.url = window.gblEcoliCount; 			
+		},
 		//load the respective templates
 		loadTemplate: function() {
 
@@ -171,7 +185,7 @@ define([
 				maxCount: this.totalCount
 			});
 
-			this.$el.find('#results').html(this.subTemplate);
+			this.$el.find('#resultsSection').html(this.subTemplate);
 
 
 		},
@@ -188,7 +202,7 @@ define([
 				reqModel: this.model
 			});
 
-			this.$el.find('#details').html(this.detailsTemplate);
+			this.$el.find('#detailsSection').html(this.detailsTemplate);
 
 			/////////////////////////////////////
 			var mapColor = '#ffebc6';
@@ -221,6 +235,8 @@ define([
 			/* draw states on id #statesvg */
 			uStates.draw("#statesvg", sampleData, this.tooltipHtml);
 			///////////
+			$('#details').get(0).scrollIntoView();
+            $('#details').focus();
 
 		},
 
@@ -249,6 +265,7 @@ define([
 			this.model.set('skip', skipValue);
 			this.displayResults();
 		},
+
 		setDateRange: function(e) {
 			if (e.target.id == "toDate") {
 				this.dateRange[1] = parseInt($(e.target).val());
