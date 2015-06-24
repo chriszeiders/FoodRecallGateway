@@ -14,8 +14,7 @@ define([
             },
 
         routes: {
-            '':'index'//,
-            //'*path': 'index'
+            '':'index'
         },
 
         index:function(){

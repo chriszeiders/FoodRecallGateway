@@ -78,7 +78,7 @@ body{
         border-right-width: 1px;
         border-right-style: solid;
         font-size:22px;
-        min-width: 30px;
+        width: 30px;
         text-align: center;
         vertical-align: middle;
         color: #333;
@@ -96,25 +96,42 @@ body{
         color: darken($alert-danger-text, 25%);
     }
     .icon-span {
-        background-color: darken($alert-danger-border, 25%);
-        border-right-color: darken($alert-danger-border, 35%);
+        background-color: $alert-danger-bg;
+        border-right-color: darken($alert-danger-border, 5%);
         
     }
     .text-span {
-        background-color: darken($alert-danger-bg, 5%);
+        background-color: $alert-danger-bg-lite;
         color: $alert-danger-text;
     }
 }
 
 .class-ii {
+    border-color: $alert-caution-border;
+    color: $alert-caution-text;
+    .alert-link {
+        color: $alert-caution-text;
+    }
+    .icon-span {
+        background-color: darken($alert-caution-bg, 15%);
+        border-right-color: darken($alert-caution-border, 15%);
+        
+    }
+    .text-span {
+        background-color: $alert-caution-bg;
+    }
+}
+
+
+.class-iii {
     border-color: $alert-warning-border;
     color: $alert-warning-text;
     .alert-link {
-        color: darken($alert-warning-text, 10%);
+        color: $alert-warning-text;
     }
     .icon-span {
-        background-color: darken($alert-warning-border, 15%);
-        border-right-color: darken($alert-warning-border, 25%);
+        background-color: darken($alert-warning-bg, 15%);
+        border-right-color: darken($alert-warning-border, 5%);
         
     }
     .text-span {
@@ -122,21 +139,6 @@ body{
     }
 }
 
-.class-iii {
-    border-color: $alert-caution-border;
-    color: $alert-caution-text;
-    .alert-link {
-        color: darken($alert-caution-text, 20%);
-    }
-    .icon-span {
-        background-color: darken($alert-caution-border, 5%);
-        border-right-color: darken($alert-caution-border, 15%);
-        color: $gray-darker;
-    }
-    .text-span {
-        background-color: lighten($alert-caution-bg, 10%);
-    }
-}
 
 //food Pyramid
 

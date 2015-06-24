@@ -111,6 +111,7 @@ define([
 			this.recalledFoodCollection = new RecalledFoodCollection();
 			this.recalledFoodCollection.url = this.model.generateURL();
 
+			this.model.set({'searchTerms': this.model.get('searchTerms').replace(',', ' ')});
 			this.termsCollection = new TermsCollection();
 			this.termsCollection.url = this.model.generateCountURL(); //window.gblResults + 'search=reason_for_recall:' + this.model.attributes.searchTerms + '&count=classification.exact';
 
@@ -141,10 +142,11 @@ define([
 								}
 							});
 
-							chart.data.colors({
-								classii: '#fcf8e3',
-								classiii: '#ffebc6',
-								classi: '#a94442'
+							chart.data.colors({						
+								
+								classi: '#d595a0',
+								classii: '#d27607',
+								classiii: '#F5D60A'
 							});
 
 						}
@@ -204,12 +206,12 @@ define([
 
 			this.$el.find('#detailsSection').html(this.detailsTemplate);
 
-			/////////////////////////////////////
-			var mapColor = '#ffebc6';
+			/////////////////////////////////////for classiiiclassiii: '#F5D60A'
+			var mapColor = '#d5d5d5';
 			if ($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class i') {
-				mapColor = '#a94442';
+				mapColor = '#d595a0';
 			} else if ($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class ii') {
-				mapColor = '#fcf8e3';
+				mapColor = '#d27607';
 			}
 
 			var sampleData = {}; /* Sample random data. */
@@ -238,6 +240,8 @@ define([
 			$('#details').get(0).scrollIntoView();
             $('#details').focus();
 
+			document.getElementById('details').scrollIntoView(true)
+			window.scrollBy(0, -75);
 		},
 
 		tooltipHtml: function(n, d) { /* function to create html content string in tooltip div. */

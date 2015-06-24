@@ -27,8 +27,8 @@ define([
 
 		// View Event Handlers
 		events: {
-			'click a[id^="anchor_"]': 'redirectToAnchor'
-		},
+			'click a[data-target]': 'scroll'
+					},
 
 		// Renders the view's template to the UI
 		render: function() {
@@ -45,13 +45,19 @@ define([
 			return this;
 
 		},
-		redirectToAnchor: function(e) {
-            e.preventDefault();
-            var anchorTarget = '#' + $(e.target).data('id');
-            $(anchorTarget).get(0).scrollIntoView();
-            $(anchorTarget).focus();
-        },		
 
+		// Scroll to view
+		scroll: function(e) {
+
+			if (e.currentTarget.attributes[0].nodeValue === 'home') {
+				$("html, body").animate({
+					scrollTop: 0
+				}, 300);
+			} else {
+				document.getElementById(e.currentTarget.attributes[0].nodeValue).scrollIntoView(true)
+				window.scrollBy(0, -75);
+			}
+		}
 	});
 
 	// Returns the View class
