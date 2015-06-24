@@ -50,7 +50,19 @@
 <div id="detailsSection"></div>
 <!-- end details section -->
 <!-- start food pyramid section-->
-<div id="foodInfoSection"></div>
+<div id="foodInfoSection">
+  <hr />
+  <h2 id="foodInfo"  tabindex="-1">Food Pyramid <small>USDA food pyramid</small></h2>
+  <div class="row">
+      <div class="col-lg-6"><img class="img-responsive" style="margin-left: auto; margin-right:auto;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/MyPyramid.svg/1024px-MyPyramid.svg.png"></div>
+      <div class="col-lg-3"><div class="panel panel-grain"><div class="panel-heading">Grain</div><div class="panel-body"><%=content.grainText %><div id="grain"></div></div></div></div>
+      <div class="col-lg-3"><div class="panel panel-vegetable"><div class="panel-heading">vegetable</div><div class="panel-body"><%=content.vegetableText %><div id="vegetable"></div></div></div></div>
+      <div class="col-lg-3"><div class="panel panel-fruit"><div class="panel-heading">fruit</div><div class="panel-body"><%=content.fruitText %><div id="fruit"></div></div></div></div>
+      <div class="col-lg-3"><div class="panel panel-oil"><div class="panel-heading">oil</div><div class="panel-body"><%=content.oilText %><div id="oil"></div></div></div></div>
+      <div class="col-lg-3"><div class="panel panel-dairy"><div class="panel-heading">dairy</div><div class="panel-body"><%=content.dairyText %><div id="dairy"></div></div></div></div>
+      <div class="col-lg-3"><div class="panel panel-meat"><div class="panel-heading">meat</div><div class="panel-body"><%=content.meatText %><div id="meat"></div></div></div></div>
+  </div>  
+</div>
 <!-- end food pyramid section -->
 <!-- start food pathogens section -->
 <div id="foodPathogensSection"><div>
@@ -59,10 +71,10 @@
   <div class="row">
     <div class="col-lg-8">
       <div class="row"> 
-      <div class="col-lg-6"><div class="panel panel-default"><div class="panel-body">Add germ info here<div id="salmonella"></div></div></div></div>
-      <div class="col-lg-6"><div class="panel panel-default"><div class="panel-body">Add germ info here<div id="norovirus"></div></div></div></div>
-      <div class="col-lg-6"><div class="panel panel-default"><div class="panel-body">Add germ info here<div id="listeria"></div></div></div></div>
-      <div class="col-lg-6"><div class="panel panel-default"><div class="panel-body">Add germ info here<div id="ecoli"></div></div></div></div>
+      <div class="col-lg-6"><div class="panel panel-default"><div class="panel-body"><%=content.salmonellaText %><div id="salmonella"></div></div></div></div>
+      <div class="col-lg-6"><div class="panel panel-default"><div class="panel-body"><%=content.norovirusText %><div id="norovirus"></div></div></div></div>
+      <div class="col-lg-6"><div class="panel panel-default"><div class="panel-body"><%=content.listeriaText %><div id="listeria"></div></div></div></div>
+      <div class="col-lg-6"><div class="panel panel-default"><div class="panel-body"><%=content.ecoliText %><div id="ecoli"></div></div></div></div>
       </div>
     </div>
     <div class="col-lg-4">

@@ -3,11 +3,11 @@
 define([
 	'jquery', 'backbone', 'text!templates/main.html', 'text!locale/main.json', 'text!locale/es_mx/main.json',
 	'text!templates/dateRangeTemplate.html', 'text!templates/distributionPattern.html', 'text!templates/stateTemplate.html',
-	'text!templates/recallStatusTemplate.html', 'text!templates/foodPyramidTemplate.html', 'text!templates/foodPathogenTemplate.html',
+	'text!templates/recallStatusTemplate.html', 'text!templates/foodRecallCountTemplate.html',
 	'text!templates/resultsSubTemplate.html', 'text!templates/detailsTemplate.html', 'collections/itemCollection',
 	'collections/recalledFoodCollection', 'd3', 'c3', 'helpers/uStates', 'collections/termsCollection',
 ], function($, Backbone, template, content, contentES, DateRangeTemplate, DistributionPatternTemplate, StateTemplate, RecallStatusTemplate,
-	FoodPyramidTemplate, FoodPathogenTemplate, ResultsSubTemplate, DetailsTemplate, ItemCollection, RecalledFoodCollection,
+	 FoodRecallCountTemplate, ResultsSubTemplate, DetailsTemplate, ItemCollection, RecalledFoodCollection,
 	d3, c3, uStates, TermsCollection) {
 	'use strict';
 
@@ -58,15 +58,9 @@ define([
 			// Dynamically updates the UI with the view's template
 			this.$el.html(this.template);
 
-			//loading the food pyramid and food Pathogen section
-			this.foodPyramidTemplate = _.template(FoodPyramidTemplate, {});
-			this.$el.find('#foodInfoSection').html(this.foodPyramidTemplate);
-
-			this.foodPathogenTemplate = _.template(FoodPathogenTemplate, {});
-			this.$el.find('#foodPathogensSection').html(this.FoodPathogenTemplate);
 			//load the advanced search items
 			this.loadAdvancedSearch();
-			this.loadFoodPathogenDetails();
+			this.loadFoodRecallCountDetails();
 			var self = this;
 			this.$el.find('#select-fooditem').selectize({
 				maxItems: 3,
@@ -126,7 +120,7 @@ define([
 
 					self.termsCollection.fetch({
 						success: function() {
-
+							self.termsCollection.sort();
 							var chart = c3.generate({
 								bindto: '#chart',
 								data: {
@@ -144,9 +138,9 @@ define([
 
 							chart.data.colors({						
 								
-								classi: '#d595a0',
-								classii: '#d27607',
-								classiii: '#F5D60A'
+								classI: '#d595a0',
+								classII: '#d27607',
+								classIII: '#F5D60A'
 							});
 
 						}
@@ -164,18 +158,35 @@ define([
 			this.$el.find('#stateSection').html(this.stateTemplate);
 			this.$el.find('#recallStatusSection').html(this.recallStatusTemplate);
 		},
-		loadFoodPathogenDetails:function(){
-			this.salmonellaCollection = new TermsCollection();
-			this.salmonellaCollection.url = window.gblSalmonellaCount; //
+		loadFoodRecallCountDetails:function(){
+			//Pathogen recall count
+			this.loadRecallCount('salmonella',this.salmonellaCollection,FoodRecallCountTemplate,window.gblSalmonellaCount);
+			this.loadRecallCount('norovirus',this.norovirusCollection,FoodRecallCountTemplate,window.gblNorovirusCount);
+			this.loadRecallCount('listeria',this.listeriaCollection,FoodRecallCountTemplate,window.gblListeriaCount);
+			this.loadRecallCount('ecoli',this.ecoliCollection,FoodRecallCountTemplate,window.gblEcoliCount);
 
-			this.norovirusCollection = new TermsCollection();
-			this.norovirusCollection.url = window.gblNorovirusCount; 
-
-			this.listeriaCollection = new TermsCollection();
-			this.listeriaCollection.url = window.gblListeriaCount; 
-
-			this.ecoliCollection = new TermsCollection();
-			this.ecoliCollection.url = window.gblEcoliCount; 			
+			//food pyramid recall count
+			this.loadRecallCount('grain',this.grainCollection,FoodRecallCountTemplate,window.gblGrainCount);
+			this.loadRecallCount('vegetable',this.vegetableCollection,FoodRecallCountTemplate,window.gblVegetableCount);
+			this.loadRecallCount('fruit',this.fruitCollection,FoodRecallCountTemplate,window.gblFruitCount);
+			this.loadRecallCount('oil',this.oilCollection,FoodRecallCountTemplate,window.gblOilCount);
+			this.loadRecallCount('dairy',this.dairyCollection,FoodRecallCountTemplate,window.gblDairyCount);
+			this.loadRecallCount('meat',this.meatCollection,FoodRecallCountTemplate,window.gblMeatCount);
+		},
+		//Load Recall Count Collection and template
+		loadRecallCount:function(id,collectionName,templateName, serviceurl){
+			collectionName = new TermsCollection();
+			collectionName.url = serviceurl;
+			var self = this;
+			collectionName.fetch({
+				async: false
+			}).done(function() {
+				self.loadRecallTemplate(id, templateName, collectionName.sort().toJSON());
+			});
+		},
+		loadRecallTemplate:function(id,templateName,collectiondata){
+			this.foodRecallTemplate = _.template(templateName,{data:collectiondata});
+			this.$el.find('#' + id).html(this.foodRecallTemplate);
 		},
 		//load the respective templates
 		loadTemplate: function() {

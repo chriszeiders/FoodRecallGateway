@@ -28,8 +28,10 @@ define([
 			} else {
 				console.log("No response from the openfda api");
 			}
-		}
-		
+		},
+		comparator: function (a) {
+		    return a.get('name');
+		}		
 
 	});
 
