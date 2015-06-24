@@ -11,3 +11,5 @@ cache:
   directories:
     - node_modules
     - app/bower_components
+notifications:
+  slack: drtforgsa18f:OD19nZfXI42xWk5WFzflH75S
