@@ -169,10 +169,16 @@ footer {
 .panel-oil,
 .panel-dairy,
 .panel-meat {
+    .panel-heading{
+     font-family: gotham book;
+     font-weight: 700;
+     font-size: 18px;     
+    }
     .panel-body {
         @media (min-width: $screen-lg-min) {
             height: 300px;
             overflow-y: auto;
+
         }
     }
 }
