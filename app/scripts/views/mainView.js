@@ -110,6 +110,7 @@ define([
 			this.recalledFoodCollection = new RecalledFoodCollection();
 			this.recalledFoodCollection.url = this.model.generateURL();
 
+			this.model.set({'searchTerms': this.model.get('searchTerms').replace(',', ' ')});
 			this.termsCollection = new TermsCollection();
 			this.termsCollection.url = this.model.generateCountURL(); //window.gblResults + 'search=reason_for_recall:' + this.model.attributes.searchTerms + '&count=classification.exact';
 
@@ -222,6 +223,8 @@ define([
 			uStates.draw("#statesvg", sampleData, this.tooltipHtml);
 			///////////
 
+			document.getElementById('details').scrollIntoView(true)
+			window.scrollBy(0, -75);
 		},
 
 		tooltipHtml: function(n, d) { /* function to create html content string in tooltip div. */

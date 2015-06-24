@@ -27,7 +27,7 @@ define([
 
 		// View Event Handlers
 		events: {
-
+			'click a[data-target]': 'scroll'
 		},
 
 		// Renders the view's template to the UI
@@ -44,6 +44,19 @@ define([
 			// Maintains chainability
 			return this;
 
+		},
+
+		// Scroll to view
+		scroll: function(e) {
+
+			if (e.currentTarget.attributes[0].nodeValue === 'home') {
+				$("html, body").animate({
+					scrollTop: 0
+				}, 300);
+			} else {
+				document.getElementById(e.currentTarget.attributes[0].nodeValue).scrollIntoView(true)
+				window.scrollBy(0, -75);
+			}
 		}
 
 	});
