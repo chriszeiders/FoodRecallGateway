@@ -166,4 +166,27 @@ body{
     @include panel-variant($meat-border, white, $meat, $meat-border);
 }
 
+
+
 @import 'helper.scss';
+
+@media (max-width: 560px) {
+    .container {
+        width: 485px;        
+    }
+    header {
+     .container {
+        
+        padding-left: 0 ;
+        padding-right: 0 ;
+    }
+    }
+    .nav > li > a {
+ 
+        padding: 10px;
+    }
+    .pal {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
