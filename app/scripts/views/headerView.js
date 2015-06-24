@@ -28,7 +28,7 @@ define([
 		// View Event Handlers
 		events: {
 			'click a[data-target]': 'scroll'
-		},
+					},
 
 		// Renders the view's template to the UI
 		render: function() {
@@ -58,7 +58,6 @@ define([
 				window.scrollBy(0, -75);
 			}
 		}
-
 	});
 
 	// Returns the View class
