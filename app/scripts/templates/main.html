@@ -2,10 +2,16 @@
 <p>
     <%=content.sampleText %>
 </p>
+<p>
+  <%=content.seachDescription %>
+</p>
 <!-- search section start-->
 <div id="searchContainer" class="row mtl mbl">
-    <div class="col-md-6">
-        <label for="foodSearch" class="sr-only">Type text to search</label>
+    <div class="col-md-9">
+      <label for="select-fooditem" class="">Quick Search</label>
+      <p>Multiple terms (up to three keywords related to food type) can be entered into the single search box.</p>
+    </div>
+    <div class="col-md-6">        
         <select id="select-fooditem" placeholder="Select a food item..." name="searchTerms" multiple>
             <option value="">Select a food item...</option>
             <option value="cheese">Cheese</option>
@@ -22,11 +28,16 @@
         <button id="btnSearch" class="btn btn-primary btn-block"><i class="fa fa-search"></i> Search</button>
     </div>
     <div class="col-md-3 col-xs-6">
-        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#advSearchContainer">Advanced Search</button>
+        <button type="button" class="btn btn-default active" data-toggle="collapse" data-target="#advSearchContainer">Advanced Search</button>
     </div>
 
     <div class="col-xs-12 collapse" id="advSearchContainer">
         <div class=" top_arrow_box mtl">
+            <div class="row mbs">
+              <div class="col-md-12">
+                <p>The Advanced Search function allows users to generate a more robust display of recent food recalls across the United States. You can select a year range, multiple keywords, search by multiple states, and filter results by food recall status.  Note: (Note: the data reported for 2015 is as of May 30, 2015).</p>
+              </div>
+            </div>
             <form role="form" class="row">
               <div class="col-md-4 col-xs-12" id="dateRangeSection">
           
@@ -52,15 +63,15 @@
 <!-- start food pyramid section-->
 <div id="foodInfoSection">
   <hr />
-  <h2 id="foodInfo"  tabindex="-1">Food Pyramid <small>USDA food pyramid</small></h2>
+  <h2 id="foodInfo"  tabindex="-1">Food Pyramid </h2>
   <div class="row">
-      <div class="col-lg-6"><img class="img-responsive" style="margin-left: auto; margin-right:auto;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/MyPyramid.svg/1024px-MyPyramid.svg.png"></div>
-      <div class="col-lg-3"><div class="panel panel-grain"><div class="panel-heading">Grain</div><div class="panel-body"><%=content.grainText %><div id="grain"></div></div></div></div>
-      <div class="col-lg-3"><div class="panel panel-vegetable"><div class="panel-heading">vegetable</div><div class="panel-body"><%=content.vegetableText %><div id="vegetable"></div></div></div></div>
-      <div class="col-lg-3"><div class="panel panel-fruit"><div class="panel-heading">fruit</div><div class="panel-body"><%=content.fruitText %><div id="fruit"></div></div></div></div>
-      <div class="col-lg-3"><div class="panel panel-oil"><div class="panel-heading">oil</div><div class="panel-body"><%=content.oilText %><div id="oil"></div></div></div></div>
-      <div class="col-lg-3"><div class="panel panel-dairy"><div class="panel-heading">dairy</div><div class="panel-body"><%=content.dairyText %><div id="dairy"></div></div></div></div>
-      <div class="col-lg-3"><div class="panel panel-meat"><div class="panel-heading">meat</div><div class="panel-body"><%=content.meatText %><div id="meat"></div></div></div></div>
+      <div class="col-lg-4"><img class="img-responsive" style="margin-left: auto; margin-right:auto;" src="http://www.choosemyplate.gov/images/MyPlateImages/JPG/myplate_white.jpg"></div>
+      <div class="col-lg-4"><div class="panel panel-fruit"><div class="panel-heading">Fruit</div><div class="panel-body"><%=content.fruitText %><div id="fruit"></div></div></div></div>
+      <!--<div class="col-lg-3"><div class="panel panel-oil"><div class="panel-heading">oil</div><div class="panel-body"><%=content.oilText %><div id="oil"></div></div></div></div>-->
+      <div class="col-lg-4"><div class="panel panel-dairy"><div class="panel-heading">Dairy</div><div class="panel-body"><%=content.dairyText %><div id="dairy"></div></div></div></div>
+      <div class="col-lg-4"><div class="panel panel-grain"><div class="panel-heading">Grain</div><div class="panel-body"><%=content.grainText %><div id="grain"></div></div></div></div>
+      <div class="col-lg-4"><div class="panel panel-vegetable"><div class="panel-heading">Vegetable</div><div class="panel-body"><%=content.vegetableText %><div id="vegetable"></div></div></div></div>      
+      <div class="col-lg-4"><div class="panel panel-meat"><div class="panel-heading">Protein</div><div class="panel-body"><%=content.meatText %><div id="meat"></div></div></div></div>
   </div>  
 </div>
 <!-- end food pyramid section -->
