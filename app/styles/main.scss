@@ -163,6 +163,26 @@ footer {
     @include panel-variant($meat-border, white, $meat, $meat-border);
 }
 
+.panel-grain,
+.panel-vegetable,
+.panel-fruit,
+.panel-oil,
+.panel-dairy,
+.panel-meat {
+    .panel-body {
+        @media (min-width: $screen-lg-min) {
+            height: 500px;
+            overflow-y: auto;
+        }
+    }
+}
+#foodPathogensSection  .panel-body{
+     @media (min-width: $screen-lg-min) {
+            height: 300px;
+            overflow-y: auto;
+        }
+}
+
 @import 'helper.scss';
 @media (max-width: 570px) {
     .container {
