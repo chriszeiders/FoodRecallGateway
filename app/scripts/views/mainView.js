@@ -4,10 +4,10 @@ define([
 	'jquery', 'backbone', 'text!templates/main.html', 'text!locale/main.json', 'text!locale/es_mx/main.json',
 	'text!templates/dateRangeTemplate.html', 'text!templates/distributionPattern.html', 'text!templates/stateTemplate.html',
 	'text!templates/recallStatusTemplate.html', 'text!templates/foodRecallCountTemplate.html',
-	'text!templates/resultsSubTemplate.html', 'text!templates/detailsTemplate.html', 'collections/itemCollection',
+	'text!templates/resultsSubTemplate.html', 'text!templates/detailsTemplate.html', 
 	'collections/recalledFoodCollection', 'd3', 'c3', 'helpers/uStates', 'collections/termsCollection',
 ], function($, Backbone, template, content, contentES, DateRangeTemplate, DistributionPatternTemplate, StateTemplate, RecallStatusTemplate,
-	 FoodRecallCountTemplate, ResultsSubTemplate, DetailsTemplate, ItemCollection, RecalledFoodCollection,
+	 FoodRecallCountTemplate, ResultsSubTemplate, DetailsTemplate, RecalledFoodCollection,
 	d3, c3, uStates, TermsCollection) {
 	'use strict';
 
@@ -60,7 +60,7 @@ define([
 
 			//load the advanced search items
 			this.loadAdvancedSearch();
-			this.loadFoodRecallCountDetails();
+			//this.loadFoodRecallCountDetails();
 			var self = this;
 			this.$el.find('#select-fooditem').selectize({
 				maxItems: 3,
@@ -105,11 +105,6 @@ define([
 			this.recalledFoodCollection = new RecalledFoodCollection();
 			this.recalledFoodCollection.url = this.model.generateURL();
 
-			this.model.set({'searchTerms': this.model.get('searchTerms').replace(',', ' ')});
-			this.termsCollection = new TermsCollection();
-			this.termsCollection.url = this.model.generateCountURL(); //window.gblResults + 'search=reason_for_recall:' + this.model.attributes.searchTerms + '&count=classification.exact';
-
-
 			var self = this;
 			this.$el.find('#resultsSection').html('');
 
@@ -117,17 +112,30 @@ define([
 				success: function() {
 					self.totalCount = self.recalledFoodCollection.totalCount;
 					self.loadTemplate();
+				},
+				error: function() {
+					self.totalCount = 0;
+					self.loadTemplate();
+				}
+			});
 
-					self.termsCollection.fetch({
+		},
+		displayResultsChart:function(){
+				//this.model.set({'searchTerms': this.model.get('searchTerms').replace(',', ' ')});
+				this.termsCollection = new TermsCollection();
+				this.termsCollection.url = this.model.generateCountURL(); 
+
+				var self = this;
+				this.termsCollection.fetch({
 						success: function() {
 							self.termsCollection.sort();
 							var chart = c3.generate({
 								bindto: '#chart',
 								data: {
 									columns: [
-										[$.trim(self.termsCollection.at(0).attributes.name).toLowerCase().replace(' ', ''), self.termsCollection.at(0).attributes.count, 'black'],
-										[$.trim(self.termsCollection.at(1).attributes.name).toLowerCase().replace(' ', ''), self.termsCollection.at(1).attributes.count, 'white'],
-										[$.trim(self.termsCollection.at(2).attributes.name).toLowerCase().replace(' ', ''), self.termsCollection.at(2).attributes.count, 'blue'],
+										["Class I", self.termsCollection.at(0).attributes.count, 'black'],
+										["Class II", self.termsCollection.at(1).attributes.count, 'white'],
+										["Class III", self.termsCollection.at(2).attributes.count, 'blue'],
 									],
 									type: 'donut'
 								},
@@ -144,14 +152,7 @@ define([
 							});
 
 						}
-					});
-				},
-				error: function() {
-					self.totalCount = 0;
-					self.loadTemplate();
-				}
-			});
-
+					});			
 		},
 		loadAdvancedSearch: function() {
 			this.$el.find('#dateRangeSection').html(this.dateRangeTemplate);
@@ -300,6 +301,7 @@ define([
 			this.model.clearModel();
 			this.model.set(data);
 			this.displayResults();
+			this.displayResultsChart();
 		}
 	});
 

@@ -2,38 +2,40 @@
 <div id="results" class="row mbm"  tabindex="-1">
     <div class="col-md-6  col-xs-6">
 		  <h3 id="numHeading" class="man">Results</h3>
-      <h4>Viewing <%-reqModel.attributes.skip + 1%> to  <%-reqModel.attributes.skip + 5%> of  <%-maxCount%> results</h4>    
+      <%if (maxCount > 0){%>
+        <h4>Viewing <%-reqModel.attributes.skip + 1%> to  <%=(reqModel.attributes.skip + 5) === maxCount ? maxCount : reqModel.attributes.skip + 5%> of  <%-maxCount%> results</h4>  
+      <%}else{%> 
+        <h4>Your search returned 0 results</h4>   
+      <%}%>
     </div>
     <%if (data.length > 0 ){%>
     <div class="col-md-3 col-xs-6">
     <nav>
       <ul class="pager">
-        <li><a href="javascript:void(0)" id="prev" >Previous</a></li>
-        <li><a href="javascript:void(0)" id="next">Next</a></li>
+        <li><a href="javascript:void(0)" id="prev" style=<%=(reqModel.attributes.skip === 0)? "display:none": "display:''"%> >Previous</a></li>
+        <li><a href="javascript:void(0)" id="next" style=<%=(reqModel.attributes.skip + 5 >= maxCount)? "display:none": "display:''"%>>Next</a></li>
       </ul>
     </nav>
     </div>
     <%}%>
 </div>
-<%if (data.length > 0 ){%>
+<%if (maxCount > 0){%>
 <div class="row mbm">
   <div class="col-md-9">
-    
+    <%if (data.length > 0 ){%>
         <div id="list">
             <%for (var i=0; i < data.length; i++) { %>
               <div class="result-list <%-(data[i].classification).toLowerCase().replace(' ', '-') %>">
                   <div class="icon-span">
                       <i class="fa fa-info"></i><span class="sr-only"><%-data[i].classification %></span>
+                  </div>               
+                  <div class="text-span">                      
+                      <a href="javascript:void(0);" class="alert-link" id='rn_<%-data[i].recallNumber%>' data-id="<%-data[i].recallNumber%>"><%- data[i].productDescription%></a>                      
                   </div>
-               
-                  <div class="text-span">
-                      
-<a href="javascript:void(0);" class="alert-link" id='rn_<%-data[i].recallNumber%>' data-id="<%-data[i].recallNumber%>"><%- data[i].productDescription%></a>                      
-                    </div>
-                </div>
-               
+                </div>               
             <%}%>
         </div>
+      <%}%>
   </div>
   <div class="col-md-3">
        <h4>Results By Classification</h4>
@@ -41,3 +43,4 @@
   </div>
 </div>
 <%}%>
+
