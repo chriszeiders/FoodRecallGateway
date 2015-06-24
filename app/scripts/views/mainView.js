@@ -60,7 +60,7 @@ define([
 
 			//load the advanced search items
 			this.loadAdvancedSearch();
-			//this.loadFoodRecallCountDetails();
+			this.loadFoodRecallCountDetails();
 			var self = this;
 			this.$el.find('#select-fooditem').selectize({
 				maxItems: 3,
@@ -132,11 +132,7 @@ define([
 							var chart = c3.generate({
 								bindto: '#chart',
 								data: {
-									columns: [
-										["Class I", self.termsCollection.at(0).attributes.count, 'black'],
-										["Class II", self.termsCollection.at(1).attributes.count, 'white'],
-										["Class III", self.termsCollection.at(2).attributes.count, 'blue'],
-									],
+									columns: self.getChartColumns(self.termsCollection),
 									type: 'donut'
 								},
 								donut: {
@@ -153,6 +149,20 @@ define([
 
 						}
 					});			
+		},
+		getChartColumns:function(chartCollection){
+			var chartCols=[];
+			var colorArray = ['black','white','blue'];
+			for (var i=0; i< chartCollection.length;i++){
+				var colArray = [];
+				colArray.push($.trim(chartCollection.at(i).attributes.name).toLowerCase().replace(' ', ''));
+				colArray.push(chartCollection.at(i).attributes.count);
+				colArray.push(colorArray[i]);
+				//chartCols.push($.trim(chartCollection.at(i).attributes.name).toLowerCase().replace(' ', ''),chartCollection.at(i).attributes.count,colorArray[i]);
+				chartCols.push(colArray);
+			}
+
+			return chartCols;
 		},
 		loadAdvancedSearch: function() {
 			this.$el.find('#dateRangeSection').html(this.dateRangeTemplate);
