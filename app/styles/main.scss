@@ -191,7 +191,7 @@ footer {
     .panel-heading {
         font-family: gotham book;
         font-weight: 700;
-        font-size: 18px;
+        @include font-size(1.8);
     }
     .panel-body {
         @media (min-width: $screen-lg-min) {
