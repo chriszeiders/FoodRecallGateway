@@ -141,10 +141,11 @@ define([
 								}
 							});
 
-							chart.data.colors({
-								classii: '#fcf8e3',
-								classiii: '#ffebc6',
-								classi: '#a94442'
+							chart.data.colors({						
+								
+								classi: '#d595a0',
+								classii: '#d27607',
+								classiii: '#F5D60A'
 							});
 
 						}
@@ -191,12 +192,12 @@ define([
 
 			this.$el.find('#details').html(this.detailsTemplate);
 
-			/////////////////////////////////////
-			var mapColor = '#ffebc6';
+			/////////////////////////////////////for classiiiclassiii: '#F5D60A'
+			var mapColor = '#d5d5d5';
 			if ($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class i') {
-				mapColor = '#a94442';
+				mapColor = '#d595a0';
 			} else if ($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class ii') {
-				mapColor = '#fcf8e3';
+				mapColor = '#d27607';
 			}
 
 			var sampleData = {}; /* Sample random data. */
