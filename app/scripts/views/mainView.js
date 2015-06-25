@@ -282,7 +282,10 @@ define([
 
 		showMore: function(e) {
 			e.preventDefault();
+			//this to toggle the text between read more and hide text
 			//this.text('See Less');
+			//this to taggle show/hide of the extra text
+			$('#extraText').toggle();
 
 		},
 
