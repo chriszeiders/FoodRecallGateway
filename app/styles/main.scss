@@ -112,6 +112,21 @@ footer {
     }
 }
 
+.icon-class-i{
+    color: $alert-danger-bg-lite;
+    @include font-size(2);
+    margin-right: 8px;
+}
+.icon-class-ii{
+    color: $alert-caution-bg;
+    @include font-size(2);
+    margin-right: 8px;
+}
+.icon-class-iii{
+    color: $alert-warning-bg;
+    @include font-size(2);
+    margin-right: 8px;
+}
 .class-i {
     border-color: $alert-danger-border;
     .alert-link {

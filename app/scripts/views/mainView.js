@@ -232,7 +232,7 @@ define([
 			this.$el.find('#detailsSection').html(this.detailsTemplate);
 
 			/////////////////////////////////////for classiiiclassiii: '#F5D60A'
-			var mapColor = '#d5d5d5';
+			var mapColor = '#F5D60A';
 			if ($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class i') {
 				mapColor = '#d595a0';
 			} else if ($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class ii') {
