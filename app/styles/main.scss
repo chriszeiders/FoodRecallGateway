@@ -63,6 +63,7 @@ footer {
     padding: 20px;
     border: 2px solid $brand-primary;
     border-radius: 5px;
+    background-color: #fff;
 }
 
 .top_arrow_box:after,
@@ -202,15 +203,17 @@ footer {
 .panel-fruit,
 .panel-oil,
 .panel-dairy,
-.panel-meat {
+.panel-meat,
+.panel-info {
     .panel-heading {
         font-family: gotham book;
         font-weight: 700;
         @include font-size(1.8);
+        
     }
     .panel-body {
         @media (min-width: $screen-lg-min) {
-            height: 300px;
+            height: 400px;
             overflow-y: auto;
         }
     }
