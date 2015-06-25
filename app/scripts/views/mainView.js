@@ -108,6 +108,7 @@ define([
 
 			var self = this;
 			this.$el.find('#resultsSection').html('');
+			this.$el.find('#detailsSection').html('');
 
 			this.recalledFoodCollection.fetch({
 				success: function() {
@@ -268,7 +269,7 @@ define([
 			$('#details').focus();
 
 			document.getElementById('details').scrollIntoView(true)
-			window.scrollBy(0, -75);
+			window.scrollBy(0, -95);
 		},
 
 		tooltipHtml: function(n, d) { /* function to create html content string in tooltip div. */
