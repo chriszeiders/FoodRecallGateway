@@ -286,6 +286,13 @@ define([
 			//this.text('See Less');
 			//this to taggle show/hide of the extra text
 			$('#extraText').toggle();
+			if(e.target.innerHTML === 'Read More')
+			{
+				e.target.innerHTML = 'Read Less';
+			}
+			else{
+				e.target.innerHTML = 'Read More';
+			}
 
 		},
 
