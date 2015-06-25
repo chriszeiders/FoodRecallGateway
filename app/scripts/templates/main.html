@@ -1,6 +1,9 @@
-<h1 id="home" tabindex="-1"><%=content.headerText %></h1>
+<p>Welcome to our ALPHA site.  It is presented as a public service meant to complement the abundance of helpful food safety information available to the public.  This is NOT a website of the United States government.</p>
+
+<h1 id="home" tabindex="-1"><%=content.headerText %><span class="sr-only">Food Recall Gateway</span></h1>
+
 <p>
-    <%=content.sampleText %>
+    Welcome to the Food Recall Gateway site! This site serves as a go-to resource for consumers to know when and where food recalls are occurring across the United States. The data provided on this site is intended to complement the federal information site, <a href="http://www.foodsafety.gov/" target="_blank">FoodSafety.gov</a>, by presenting dynamic visualizations of current food recall trends and user-friendly tools to inform consumers’ daily dietary habits. 
 </p>
 <p>
   <%=content.seachDescription %>
@@ -64,8 +67,10 @@
 <div id="foodInfoSection">
   <hr />
   <h2 id="foodInfo"  tabindex="-1">My Plate</h2>
-  <div class="row">
-      <div class="col-lg-4"><img class="img-responsive" style="margin-left: auto; margin-right:auto;" src="http://www.choosemyplate.gov/images/MyPlateImages/JPG/myplate_white.jpg"></div>
+  <p>Food Recall Gateway aims to present food safety data in a way that makes sense to you.  Below you can view the latest FDA food recalls organized by the <a href="http://www.choosemyplate.gov/food-groups/" target="blank"> USDA’s ChooseMyPlate food groups</a>.  Create <a href="http://www.choosemyplate.gov/myplate/index.aspx" target="_blank">food plans</a> that work for you.  The USDA utilizes the MyPlate icon on to prompt consumers make healthier food choices in their daily lives. The boxes below will help consumers effectively target safer foods by being aware of the latest FDA food recalls by hazard level.</p>
+  <div class="row mts">
+      <div class="col-lg-4"><img class="img-responsive" style="padding: 10%;" src="http://www.choosemyplate.gov/images/MyPlateImages/JPG/myplate_white.jpg">
+      <a href="http://www.choosemyplate.gov/about.html ">http://www.choosemyplate.gov/about.html </a></div>
       <div class="col-lg-4"><div class="panel panel-fruit"><div class="panel-heading">Fruit</div><div class="panel-body"><%=content.fruitText %><div id="fruit"></div></div></div></div>
       <!--<div class="col-lg-3"><div class="panel panel-oil"><div class="panel-heading">oil</div><div class="panel-body"><%=content.oilText %><div id="oil"></div></div></div></div>-->
       <div class="col-lg-4"><div class="panel panel-dairy"><div class="panel-heading">Dairy</div><div class="panel-body"><%=content.dairyText %><div id="dairy"></div></div></div></div>
@@ -85,7 +90,7 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4><a href="http://www.homefoodsafety.org/food-poisoning/foodborne-pathogens#salmonella" target="blank">Salmonella</a></h4>
+                    <h3><a href="http://www.homefoodsafety.org/food-poisoning/foodborne-pathogens#salmonella" target="blank">Salmonella</a></h3>
                     <p>
                       <%=content.salmonellaText %>
                     </p>
@@ -96,7 +101,7 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4><a href="http://www.homefoodsafety.org/food-poisoning/foodborne-pathogens#Norovirus" target="blank">Norovirus</a></h4>
+                    <h3><a href="http://www.homefoodsafety.org/food-poisoning/foodborne-pathogens#Norovirus" target="blank">Norovirus</a></h3>
                     <p>
                         <%=content.norovirusText %>
                     </p>
@@ -107,7 +112,7 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4><a href="http://www.homefoodsafety.org/food-poisoning/foodborne-pathogens#Listeria" target="blank">Listeria</a></h4>
+                    <h3><a href="http://www.homefoodsafety.org/food-poisoning/foodborne-pathogens#Listeria" target="blank">Listeria</a></h3>
                     <p>
                         <%=content.listeriaText %>
                     </p>
@@ -119,7 +124,7 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4><a href="http://www.homefoodsafety.org/food-poisoning/foodborne-pathogens#E. coli" target="blank">E. coli</a></h4>
+                    <h3><a href="http://www.homefoodsafety.org/food-poisoning/foodborne-pathogens#E. coli" target="blank">E. coli</a></h3>
                     <p>
                          <%=content.ecoliText %>
                     </p>

@@ -4,10 +4,10 @@ define([
 	'jquery', 'backbone', 'text!templates/main.html', 'text!locale/main.json', 'text!locale/es_mx/main.json',
 	'text!templates/dateRangeTemplate.html', 'text!templates/distributionPattern.html', 'text!templates/stateTemplate.html',
 	'text!templates/recallStatusTemplate.html', 'text!templates/foodRecallCountTemplate.html',
-	'text!templates/resultsSubTemplate.html', 'text!templates/detailsTemplate.html', 
+	'text!templates/resultsSubTemplate.html', 'text!templates/detailsTemplate.html',
 	'collections/recalledFoodCollection', 'd3', 'c3', 'helpers/uStates', 'collections/termsCollection',
 ], function($, Backbone, template, content, contentES, DateRangeTemplate, DistributionPatternTemplate, StateTemplate, RecallStatusTemplate,
-	 FoodRecallCountTemplate, ResultsSubTemplate, DetailsTemplate, RecalledFoodCollection,
+	FoodRecallCountTemplate, ResultsSubTemplate, DetailsTemplate, RecalledFoodCollection,
 	d3, c3, uStates, TermsCollection) {
 	'use strict';
 
@@ -67,6 +67,7 @@ define([
 				plugins: ['remove_button'],
 				delimiter: ',',
 				persist: false,
+				createOnBlur: true,
 				create: function(input) {
 					return {
 						value: input,
@@ -107,6 +108,7 @@ define([
 
 			var self = this;
 			this.$el.find('#resultsSection').html('');
+			this.$el.find('#detailsSection').html('');
 
 			this.recalledFoodCollection.fetch({
 				success: function() {
@@ -121,23 +123,23 @@ define([
 			});
 
 		},
-		displayResultsChart:function(){
-				//this.model.set({'searchTerms': this.model.get('searchTerms').replace(',', ' ')});
-				this.resultsChartCollection = new TermsCollection();
-				this.resultsChartCollection.url = this.model.generateCountURL(); 
+		displayResultsChart: function() {
+			//this.model.set({'searchTerms': this.model.get('searchTerms').replace(',', ' ')});
+			this.resultsChartCollection = new TermsCollection();
+			this.resultsChartCollection.url = this.model.generateCountURL();
 
-				var self = this;
-				this.resultsChartCollection.fetch({
-						success: function() {
-							self.resultsChartCollection.sort();
-							self.loadChart(self.resultsChartCollection);
-						}
-					});			
+			var self = this;
+			this.resultsChartCollection.fetch({
+				success: function() {
+					self.resultsChartCollection.sort();
+					self.loadChart(self.resultsChartCollection);
+				}
+			});
 		},
-		getChartColumns:function(chartCollection){
-			var chartCols=[];
-			var colorArray = ['black','white','blue'];
-			for (var i=0; i< chartCollection.length;i++){
+		getChartColumns: function(chartCollection) {
+			var chartCols = [];
+			var colorArray = ['black', 'white', 'blue'];
+			for (var i = 0; i < chartCollection.length; i++) {
 				var colArray = [];
 				colArray.push($.trim(chartCollection.at(i).attributes.name).toLowerCase().replace(' ', ''));
 				colArray.push(chartCollection.at(i).attributes.count);
@@ -153,42 +155,41 @@ define([
 			this.$el.find('#stateSection').html(this.stateTemplate);
 			this.$el.find('#recallStatusSection').html(this.recallStatusTemplate);
 		},
-		loadChart:function(chartCollection){
+		loadChart: function(chartCollection) {
 			var chart = c3.generate({
-								bindto: '#chart',
-								data: {
-									columns: this.getChartColumns(chartCollection),
-									type: 'donut'
-								},
-								donut: {
-									title: "Recall Classification"
-								}
-							});
+				bindto: '#chart',
+				data: {
+					columns: this.getChartColumns(chartCollection),
+					type: 'donut'
+				},
+				donut: {
+					title: "Recall Classification"
+				}
+			});
 
-							chart.data.colors({						
-								
-								classI: '#d595a0',
-								classII: '#d27607',
-								classIII: '#F5D60A'
-							});
+			chart.data.colors({
+				classi: '#d595a0',
+				classii: '#d27607',
+				classiii: '#F5D60A'
+			});
 		},
-		loadFoodRecallCountDetails:function(){
+		loadFoodRecallCountDetails: function() {
 			//Pathogen recall count
-			this.loadRecallCount('salmonella',this.salmonellaCollection,FoodRecallCountTemplate,window.gblSalmonellaCount);
-			this.loadRecallCount('norovirus',this.norovirusCollection,FoodRecallCountTemplate,window.gblNorovirusCount);
-			this.loadRecallCount('listeria',this.listeriaCollection,FoodRecallCountTemplate,window.gblListeriaCount);
-			this.loadRecallCount('ecoli',this.ecoliCollection,FoodRecallCountTemplate,window.gblEcoliCount);
+			this.loadRecallCount('salmonella', this.salmonellaCollection, FoodRecallCountTemplate, window.gblSalmonellaCount);
+			this.loadRecallCount('norovirus', this.norovirusCollection, FoodRecallCountTemplate, window.gblNorovirusCount);
+			this.loadRecallCount('listeria', this.listeriaCollection, FoodRecallCountTemplate, window.gblListeriaCount);
+			this.loadRecallCount('ecoli', this.ecoliCollection, FoodRecallCountTemplate, window.gblEcoliCount);
 
 			//food pyramid recall count
-			this.loadRecallCount('grain',this.grainCollection,FoodRecallCountTemplate,window.gblGrainCount);
-			this.loadRecallCount('vegetable',this.vegetableCollection,FoodRecallCountTemplate,window.gblVegetableCount);
-			this.loadRecallCount('fruit',this.fruitCollection,FoodRecallCountTemplate,window.gblFruitCount);
-			this.loadRecallCount('oil',this.oilCollection,FoodRecallCountTemplate,window.gblOilCount);
-			this.loadRecallCount('dairy',this.dairyCollection,FoodRecallCountTemplate,window.gblDairyCount);
-			this.loadRecallCount('meat',this.meatCollection,FoodRecallCountTemplate,window.gblMeatCount);
+			this.loadRecallCount('grain', this.grainCollection, FoodRecallCountTemplate, window.gblGrainCount);
+			this.loadRecallCount('vegetable', this.vegetableCollection, FoodRecallCountTemplate, window.gblVegetableCount);
+			this.loadRecallCount('fruit', this.fruitCollection, FoodRecallCountTemplate, window.gblFruitCount);
+			this.loadRecallCount('oil', this.oilCollection, FoodRecallCountTemplate, window.gblOilCount);
+			this.loadRecallCount('dairy', this.dairyCollection, FoodRecallCountTemplate, window.gblDairyCount);
+			this.loadRecallCount('meat', this.meatCollection, FoodRecallCountTemplate, window.gblMeatCount);
 		},
 		//Load Recall Count Collection and template
-		loadRecallCount:function(id,collectionName,templateName, serviceurl){
+		loadRecallCount: function(id, collectionName, templateName, serviceurl) {
 			collectionName = new TermsCollection();
 			collectionName.url = serviceurl;
 			var self = this;
@@ -198,8 +199,10 @@ define([
 				self.loadRecallTemplate(id, templateName, collectionName.sort().toJSON());
 			});
 		},
-		loadRecallTemplate:function(id,templateName,collectiondata){
-			this.foodRecallTemplate = _.template(templateName,{data:collectiondata});
+		loadRecallTemplate: function(id, templateName, collectiondata) {
+			this.foodRecallTemplate = _.template(templateName, {
+				data: collectiondata
+			});
 			this.$el.find('#' + id).html(this.foodRecallTemplate);
 		},
 		//load the respective templates
@@ -232,7 +235,7 @@ define([
 			this.$el.find('#detailsSection').html(this.detailsTemplate);
 
 			/////////////////////////////////////for classiiiclassiii: '#F5D60A'
-			var mapColor = '#d5d5d5';
+			var mapColor = '#F5D60A';
 			if ($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class i') {
 				mapColor = '#d595a0';
 			} else if ($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class ii') {
@@ -263,10 +266,10 @@ define([
 			uStates.draw("#statesvg", sampleData, this.tooltipHtml);
 			///////////
 			$('#details').get(0).scrollIntoView();
-            $('#details').focus();
+			$('#details').focus();
 
 			document.getElementById('details').scrollIntoView(true)
-			window.scrollBy(0, -75);
+			window.scrollBy(0, -95);
 		},
 
 		tooltipHtml: function(n, d) { /* function to create html content string in tooltip div. */
@@ -287,9 +290,9 @@ define([
 			var skipValue = (this.model.get('skip') === this.totalCount) ? this.totalCount : (this.model.get('skip') + 5);
 			this.model.set('skip', skipValue);
 			this.displayResults();
-			if(this.resultsChartCollection){
+			if (this.resultsChartCollection) {
 				this.loadChart(this.resultsChartCollection);
-			}else{
+			} else {
 				this.displayResultsChart();
 			}
 		},
@@ -298,11 +301,11 @@ define([
 			var skipValue = (this.model.get('skip') === 0) ? 0 : (this.model.get('skip') - 5);
 			this.model.set('skip', skipValue);
 			this.displayResults();
-			if(this.resultsChartCollection){
+			if (this.resultsChartCollection) {
 				this.loadChart(this.resultsChartCollection);
-			}else{
+			} else {
 				this.displayResultsChart();
-			}			
+			}
 		},
 
 		setDateRange: function(e) {
@@ -323,8 +326,9 @@ define([
 			};
 			this.model.clearModel();
 			this.model.set(data);
-			this.displayResults();
-			
+			if (this.searchTerms)
+				this.displayResults();
+
 		}
 	});
 

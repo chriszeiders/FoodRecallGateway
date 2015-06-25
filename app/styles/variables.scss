@@ -16,15 +16,15 @@ $alert-danger-text:           #000;
 $alert-danger-border:         #EF3644;
 
 // food color variables
-$grain: #ff9900;
-$grain-border: darken($grain, 15%);
-$vegetable: #339966;
-$vegetable-border: darken($vegetable, 15%);
-$fruit: #e00000;
-$fruit-border: darken($fruit, 15%);
+$grain: #ab5410;
+$grain-border: $grain;
+$vegetable: #00843d;
+$vegetable-border: $vegetable;
+$fruit: #a91317;
+$fruit-border: $fruit;
 $oil: #cccc00;
 $oil-border: darken($oil, 15%);
-$dairy: #3299FF; //milk, yogurt, cheese
-$dairy-border: darken($dairy, 15%);
-$meat: #663096;
-$meat-border: darken($meat, 15%);
+$dairy: #3370a7; 
+$dairy-border: $dairy;
+$meat: #46316e;
+$meat-border: $meat;

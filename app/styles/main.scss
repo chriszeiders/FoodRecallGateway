@@ -1,5 +1,6 @@
 $icon-font-path: "../fonts/";
 @import 'app/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
+@import '_rem.scss';
 @import 'vendor/fontawesome/scss/font-awesome.scss';
 @import 'variables.scss';
 // global scss
@@ -18,6 +19,24 @@ $icon-font-path: "../fonts/";
 //adding padding becasue of the static header
 body {
     padding-top: 130px;
+    @include font-size(1.6);
+}
+
+// changing font from pixels to rem 
+p {
+    @include font-size(1.6);
+}
+
+h1 {
+    @include font-size(2.6);
+}
+
+h2 {
+    @include font-size(2.15);
+}
+
+h3 {
+    @include font-size(1.7);
 }
 
 .navbar-inverse {
@@ -93,6 +112,21 @@ footer {
     }
 }
 
+.icon-class-i{
+    color: $alert-danger-bg-lite;
+    @include font-size(2);
+    margin-right: 8px;
+}
+.icon-class-ii{
+    color: $alert-caution-bg;
+    @include font-size(2);
+    margin-right: 8px;
+}
+.icon-class-iii{
+    color: $alert-warning-bg;
+    @include font-size(2);
+    margin-right: 8px;
+}
 .class-i {
     border-color: $alert-danger-border;
     .alert-link {
@@ -169,6 +203,11 @@ footer {
 .panel-oil,
 .panel-dairy,
 .panel-meat {
+    .panel-heading {
+        font-family: gotham book;
+        font-weight: 700;
+        @include font-size(1.8);
+    }
     .panel-body {
         @media (min-width: $screen-lg-min) {
             height: 300px;
@@ -176,11 +215,12 @@ footer {
         }
     }
 }
-#foodPathogensSection  .panel-body{
-     @media (min-width: $screen-lg-min) {
-            height: 300px;
-            overflow-y: auto;
-        }
+
+#foodPathogensSection .panel-body {
+    @media (min-width: $screen-lg-min) {
+        height: 300px;
+        overflow-y: auto;
+    }
 }
 
 @import 'helper.scss';
