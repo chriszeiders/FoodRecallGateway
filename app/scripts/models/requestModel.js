@@ -59,7 +59,12 @@ define([
 		},
 
 		generateCountURL: function() {
-			return window.gblResults + 'search=reason_for_recall:' + this.get('searchTerms') + '&count=classification.exact';
+			var serviceURL = window.gblResults;
+			if (this.get('searchTerms')) {
+				serviceURL = serviceURL + 'search=reason_for_recall:' + this.get('searchTerms').replace(/,/g, '+') + '&';
+			}
+			serviceURL = serviceURL + 'count=classification.exact';
+			return serviceURL;
 		}
 
 	});

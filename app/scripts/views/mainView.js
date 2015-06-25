@@ -3,11 +3,11 @@
 define([
 	'jquery', 'backbone', 'text!templates/main.html', 'text!locale/main.json', 'text!locale/es_mx/main.json',
 	'text!templates/dateRangeTemplate.html', 'text!templates/distributionPattern.html', 'text!templates/stateTemplate.html',
-	'text!templates/recallStatusTemplate.html', 'text!templates/foodPyramidTemplate.html', 'text!templates/foodPathogenTemplate.html',
-	'text!templates/resultsSubTemplate.html', 'text!templates/detailsTemplate.html', 'collections/itemCollection',
+	'text!templates/recallStatusTemplate.html', 'text!templates/foodRecallCountTemplate.html',
+	'text!templates/resultsSubTemplate.html', 'text!templates/detailsTemplate.html', 
 	'collections/recalledFoodCollection', 'd3', 'c3', 'helpers/uStates', 'collections/termsCollection',
 ], function($, Backbone, template, content, contentES, DateRangeTemplate, DistributionPatternTemplate, StateTemplate, RecallStatusTemplate,
-	FoodPyramidTemplate, FoodPathogenTemplate, ResultsSubTemplate, DetailsTemplate, ItemCollection, RecalledFoodCollection,
+	 FoodRecallCountTemplate, ResultsSubTemplate, DetailsTemplate, RecalledFoodCollection,
 	d3, c3, uStates, TermsCollection) {
 	'use strict';
 
@@ -41,6 +41,7 @@ define([
 			'click a[id="next"]': 'moveNext',
 			'click a[id^= "rn_"]': 'getDetails',
 			'change #fromDate, #toDate': 'setDateRange'
+
 		},
 
 		// Renders the view's template to the UI
@@ -57,15 +58,9 @@ define([
 			// Dynamically updates the UI with the view's template
 			this.$el.html(this.template);
 
-			//loading the food pyramid and food Pathogen section
-			this.foodPyramidTemplate = _.template(FoodPyramidTemplate, {});
-			this.$el.find('#foodInfo').html(this.foodPyramidTemplate);
-
-			this.foodPathogenTemplate = _.template(FoodPathogenTemplate, {});
-			this.$el.find('#foodPathogens').html(this.FoodPathogenTemplate);
 			//load the advanced search items
 			this.loadAdvancedSearch();
-
+			this.loadFoodRecallCountDetails();
 			var self = this;
 			this.$el.find('#select-fooditem').selectize({
 				maxItems: 3,
@@ -110,45 +105,14 @@ define([
 			this.recalledFoodCollection = new RecalledFoodCollection();
 			this.recalledFoodCollection.url = this.model.generateURL();
 
-			this.model.set({'searchTerms': this.model.get('searchTerms').replace(',', ' ')});
-			this.termsCollection = new TermsCollection();
-			this.termsCollection.url = this.model.generateCountURL(); //window.gblResults + 'search=reason_for_recall:' + this.model.attributes.searchTerms + '&count=classification.exact';
-
-
 			var self = this;
-			this.$el.find('#results').html('');
+			this.$el.find('#resultsSection').html('');
 
 			this.recalledFoodCollection.fetch({
 				success: function() {
 					self.totalCount = self.recalledFoodCollection.totalCount;
 					self.loadTemplate();
-
-					self.termsCollection.fetch({
-						success: function() {
-
-							var chart = c3.generate({
-								bindto: '#chart',
-								data: {
-									columns: [
-										[$.trim(self.termsCollection.at(0).attributes.name).toLowerCase().replace(' ', ''), self.termsCollection.at(0).attributes.count, 'black'],
-										[$.trim(self.termsCollection.at(1).attributes.name).toLowerCase().replace(' ', ''), self.termsCollection.at(1).attributes.count, 'white'],
-										[$.trim(self.termsCollection.at(2).attributes.name).toLowerCase().replace(' ', ''), self.termsCollection.at(2).attributes.count, 'blue'],
-									],
-									type: 'donut'
-								},
-								donut: {
-									title: "Recall Classification"
-								}
-							});
-
-							chart.data.colors({
-								classii: '#fcf8e3',
-								classiii: '#ffebc6',
-								classi: '#a94442'
-							});
-
-						}
-					});
+					self.displayResultsChart();
 				},
 				error: function() {
 					self.totalCount = 0;
@@ -157,10 +121,86 @@ define([
 			});
 
 		},
+		displayResultsChart:function(){
+				//this.model.set({'searchTerms': this.model.get('searchTerms').replace(',', ' ')});
+				this.resultsChartCollection = new TermsCollection();
+				this.resultsChartCollection.url = this.model.generateCountURL(); 
+
+				var self = this;
+				this.resultsChartCollection.fetch({
+						success: function() {
+							self.resultsChartCollection.sort();
+							self.loadChart(self.resultsChartCollection);
+						}
+					});			
+		},
+		getChartColumns:function(chartCollection){
+			var chartCols=[];
+			var colorArray = ['black','white','blue'];
+			for (var i=0; i< chartCollection.length;i++){
+				var colArray = [];
+				colArray.push($.trim(chartCollection.at(i).attributes.name).toLowerCase().replace(' ', ''));
+				colArray.push(chartCollection.at(i).attributes.count);
+				colArray.push(colorArray[i]);
+				//chartCols.push($.trim(chartCollection.at(i).attributes.name).toLowerCase().replace(' ', ''),chartCollection.at(i).attributes.count,colorArray[i]);
+				chartCols.push(colArray);
+			}
+
+			return chartCols;
+		},
 		loadAdvancedSearch: function() {
 			this.$el.find('#dateRangeSection').html(this.dateRangeTemplate);
 			this.$el.find('#stateSection').html(this.stateTemplate);
 			this.$el.find('#recallStatusSection').html(this.recallStatusTemplate);
+		},
+		loadChart:function(chartCollection){
+			var chart = c3.generate({
+								bindto: '#chart',
+								data: {
+									columns: this.getChartColumns(chartCollection),
+									type: 'donut'
+								},
+								donut: {
+									title: "Recall Classification"
+								}
+							});
+
+							chart.data.colors({						
+								
+								classI: '#d595a0',
+								classII: '#d27607',
+								classIII: '#F5D60A'
+							});
+		},
+		loadFoodRecallCountDetails:function(){
+			//Pathogen recall count
+			this.loadRecallCount('salmonella',this.salmonellaCollection,FoodRecallCountTemplate,window.gblSalmonellaCount);
+			this.loadRecallCount('norovirus',this.norovirusCollection,FoodRecallCountTemplate,window.gblNorovirusCount);
+			this.loadRecallCount('listeria',this.listeriaCollection,FoodRecallCountTemplate,window.gblListeriaCount);
+			this.loadRecallCount('ecoli',this.ecoliCollection,FoodRecallCountTemplate,window.gblEcoliCount);
+
+			//food pyramid recall count
+			this.loadRecallCount('grain',this.grainCollection,FoodRecallCountTemplate,window.gblGrainCount);
+			this.loadRecallCount('vegetable',this.vegetableCollection,FoodRecallCountTemplate,window.gblVegetableCount);
+			this.loadRecallCount('fruit',this.fruitCollection,FoodRecallCountTemplate,window.gblFruitCount);
+			this.loadRecallCount('oil',this.oilCollection,FoodRecallCountTemplate,window.gblOilCount);
+			this.loadRecallCount('dairy',this.dairyCollection,FoodRecallCountTemplate,window.gblDairyCount);
+			this.loadRecallCount('meat',this.meatCollection,FoodRecallCountTemplate,window.gblMeatCount);
+		},
+		//Load Recall Count Collection and template
+		loadRecallCount:function(id,collectionName,templateName, serviceurl){
+			collectionName = new TermsCollection();
+			collectionName.url = serviceurl;
+			var self = this;
+			collectionName.fetch({
+				async: false
+			}).done(function() {
+				self.loadRecallTemplate(id, templateName, collectionName.sort().toJSON());
+			});
+		},
+		loadRecallTemplate:function(id,templateName,collectiondata){
+			this.foodRecallTemplate = _.template(templateName,{data:collectiondata});
+			this.$el.find('#' + id).html(this.foodRecallTemplate);
 		},
 		//load the respective templates
 		loadTemplate: function() {
@@ -172,7 +212,7 @@ define([
 				maxCount: this.totalCount
 			});
 
-			this.$el.find('#results').html(this.subTemplate);
+			this.$el.find('#resultsSection').html(this.subTemplate);
 
 
 		},
@@ -189,14 +229,14 @@ define([
 				reqModel: this.model
 			});
 
-			this.$el.find('#details').html(this.detailsTemplate);
+			this.$el.find('#detailsSection').html(this.detailsTemplate);
 
-			/////////////////////////////////////
-			var mapColor = '#ffebc6';
+			/////////////////////////////////////for classiiiclassiii: '#F5D60A'
+			var mapColor = '#d5d5d5';
 			if ($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class i') {
-				mapColor = '#a94442';
+				mapColor = '#d595a0';
 			} else if ($.trim(recallDetails[0].attributes.classification).toLowerCase() === 'class ii') {
-				mapColor = '#fcf8e3';
+				mapColor = '#d27607';
 			}
 
 			var sampleData = {}; /* Sample random data. */
@@ -222,6 +262,8 @@ define([
 			/* draw states on id #statesvg */
 			uStates.draw("#statesvg", sampleData, this.tooltipHtml);
 			///////////
+			$('#details').get(0).scrollIntoView();
+            $('#details').focus();
 
 			document.getElementById('details').scrollIntoView(true)
 			window.scrollBy(0, -75);
@@ -245,13 +287,24 @@ define([
 			var skipValue = (this.model.get('skip') === this.totalCount) ? this.totalCount : (this.model.get('skip') + 5);
 			this.model.set('skip', skipValue);
 			this.displayResults();
+			if(this.resultsChartCollection){
+				this.loadChart(this.resultsChartCollection);
+			}else{
+				this.displayResultsChart();
+			}
 		},
 		movePrev: function(e) {
 			e.preventDefault();
 			var skipValue = (this.model.get('skip') === 0) ? 0 : (this.model.get('skip') - 5);
 			this.model.set('skip', skipValue);
 			this.displayResults();
+			if(this.resultsChartCollection){
+				this.loadChart(this.resultsChartCollection);
+			}else{
+				this.displayResultsChart();
+			}			
 		},
+
 		setDateRange: function(e) {
 			if (e.target.id == "toDate") {
 				this.dateRange[1] = parseInt($(e.target).val());
@@ -271,6 +324,7 @@ define([
 			this.model.clearModel();
 			this.model.set(data);
 			this.displayResults();
+			
 		}
 	});
 

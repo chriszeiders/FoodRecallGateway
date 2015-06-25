@@ -85,7 +85,17 @@ define([
 			this.view.recallStatuses = ['ongoing','open'];
 			this.view.stateList = ['CA','OH'];
 			this.view.getResults(e);
-		});		
+		});	
+		it('should update the date range array',function(){
+			var e = jQuery.Event("click", {
+				target: $('<button id="btnSearch" class="btn btn-primary">Search</button>')
+			});
+			e.keyCode = 13;
+			this.view.searchTerms =['cheese','meat'];
+			this.view.recallStatuses = ['ongoing','open'];
+			this.view.stateList = ['CA','OH'];
+			this.view.getResults(e);
+		});	
 
 		// Runs after every view spec
 		afterEach(function() {

@@ -1,17 +1,9 @@
 $icon-font-path: "../fonts/";
-
 @import 'app/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
-
-
+@import '_rem.scss';
 @import 'vendor/fontawesome/scss/font-awesome.scss';
-
-
 @import 'variables.scss';
-
-
-
 // global scss
-
 .hidden {
     display: none!important;
     visibility: hidden!important;
@@ -25,15 +17,46 @@ $icon-font-path: "../fonts/";
 }
 
 //adding padding becasue of the static header
-
-body{
-    padding-top: 130px;    
+body {
+    padding-top: 130px;
+    @include font-size(1.6);
 }
 
-.navbar-inverse .navbar-brand {
-  color: #fff;
-  font-size: 3.6rem;
+// changing font from pixels to rem 
+p {
+    @include font-size(1.6);
 }
+
+h1 {
+    @include font-size(2.6);
+}
+
+h2 {
+    @include font-size(2.15);
+}
+
+h3 {
+    @include font-size(1.7);
+}
+
+.navbar-inverse {
+    border-radius: 0;
+    .navbar-brand {
+        color: #fff;
+        font-size: 3.6rem;
+    }
+}
+
+footer {
+    .navbar-inverse {
+        margin-bottom: 0;
+        margin-top: 20px;
+    }
+    p {
+        color: #fff;
+    }
+}
+
 //advance search section
 .top_arrow_box {
     position: relative;
@@ -77,7 +100,7 @@ body{
         display: table-cell;
         border-right-width: 1px;
         border-right-style: solid;
-        font-size:22px;
+        font-size: 22px;
         width: 30px;
         text-align: center;
         vertical-align: middle;
@@ -91,14 +114,12 @@ body{
 
 .class-i {
     border-color: $alert-danger-border;
-    
     .alert-link {
         color: darken($alert-danger-text, 25%);
     }
     .icon-span {
         background-color: $alert-danger-bg;
         border-right-color: darken($alert-danger-border, 5%);
-        
     }
     .text-span {
         background-color: $alert-danger-bg-lite;
@@ -115,13 +136,11 @@ body{
     .icon-span {
         background-color: darken($alert-caution-bg, 15%);
         border-right-color: darken($alert-caution-border, 15%);
-        
     }
     .text-span {
-        background-color: $alert-caution-bg;
+        background-color: $alert-caution-bg-lite;
     }
 }
-
 
 .class-iii {
     border-color: $alert-warning-border;
@@ -132,16 +151,13 @@ body{
     .icon-span {
         background-color: darken($alert-warning-bg, 15%);
         border-right-color: darken($alert-warning-border, 5%);
-        
     }
     .text-span {
         background-color: $alert-warning-bg;
     }
 }
 
-
 //food Pyramid
-
 .panel-grain {
     @include panel-variant($grain-border, white, $grain, $grain-border);
 }
@@ -166,4 +182,48 @@ body{
     @include panel-variant($meat-border, white, $meat, $meat-border);
 }
 
+.panel-grain,
+.panel-vegetable,
+.panel-fruit,
+.panel-oil,
+.panel-dairy,
+.panel-meat {
+    .panel-heading {
+        font-family: gotham book;
+        font-weight: 700;
+        @include font-size(1.8);
+    }
+    .panel-body {
+        @media (min-width: $screen-lg-min) {
+            height: 300px;
+            overflow-y: auto;
+        }
+    }
+}
+
+#foodPathogensSection .panel-body {
+    @media (min-width: $screen-lg-min) {
+        height: 300px;
+        overflow-y: auto;
+    }
+}
+
 @import 'helper.scss';
+@media (max-width: 570px) {
+    .container {
+        width: 450px;
+    }
+    header {
+        .container {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    .nav > li > a {
+        padding: 10px;
+    }
+    .pal {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
