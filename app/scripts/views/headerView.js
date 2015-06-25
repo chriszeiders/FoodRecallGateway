@@ -55,7 +55,7 @@ define([
 				}, 300);
 			} else {
 				document.getElementById(e.currentTarget.attributes[0].nodeValue).scrollIntoView(true)
-				window.scrollBy(0, -85);
+				window.scrollBy(0, -95);
 			}
 		}
 	});
