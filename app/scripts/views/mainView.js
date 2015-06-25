@@ -67,6 +67,7 @@ define([
 				plugins: ['remove_button'],
 				delimiter: ',',
 				persist: false,
+				createOnBlur: true,
 				create: function(input) {
 					return {
 						value: input,
