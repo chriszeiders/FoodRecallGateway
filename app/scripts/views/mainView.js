@@ -40,8 +40,8 @@ define([
 			'click a[id="prev"]': 'movePrev',
 			'click a[id="next"]': 'moveNext',
 			'click a[id^= "rn_"]': 'getDetails',
-			'change #fromDate, #toDate': 'setDateRange'
-
+			'change #fromDate, #toDate': 'setDateRange',
+			'click a[id="showMoreText"]': 'showMore'
 		},
 
 		// Renders the view's template to the UI
@@ -278,6 +278,22 @@ define([
 				"<tr><td>Average</td><td>" + (d.avg) + "</td></tr>" +
 				"<tr><td>High</td><td>" + (d.high) + "</td></tr>" +
 				"</table>";
+		},
+
+		showMore: function(e) {
+			e.preventDefault();
+			//this to toggle the text between read more and hide text
+			//this.text('See Less');
+			//this to taggle show/hide of the extra text
+			$('#extraText').toggle();
+			if(e.target.innerHTML === 'Read More')
+			{
+				e.target.innerHTML = 'Read Less';
+			}
+			else{
+				e.target.innerHTML = 'Read More';
+			}
+
 		},
 
 		getResults: function(e) {
