@@ -1,8 +1,8 @@
 {
-  "name": "farmersmarketbydrt",
-  "version": "0.0.1",
-  "author": "Yonas Robi",
-  "description": "farmersmarketbydrt",
+  "name": "foodrecallgateway",
+  "version": "0.1.0",
+  "author": "Geoff D, Chris Z, Danya S, Menka Y, Yonas R",
+  "description": "Repository for the Food Recall Gateway Single Page Application",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "test/",
@@ -10,6 +10,11 @@
     "postinstall": "node_modules/.bin/bower install && node_modules/.bin/grunt build"
   },
   "keywords": [
+    "Food",
+    "Recall",
+    "Gateway",
+    "FDA",
+    "API"
     "Application",
     "Grunt",
     "SinglePage",
