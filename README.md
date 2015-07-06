@@ -41,15 +41,18 @@ The DRT 18F ADS 1 development team has demonstrated experience bringing improved
 ##Deployment
 The prototype is deployed on Heroku, a Platform as a Service (PaaS) provider.  The URL is http://foodrecallgateway.herokuapp.com/.
 
+##Test
+The DRT dev team wrote unit tests using Jasmine (a behavior-driven development framework).  These unit tests executed local developers' environment prior to executing a pull request.  The unit tests are located in the Github repository:  https://github.com/DRTforGSA18F/FoodRecallGateway/tree/master/test.  
+Additionally, Travis-CI executed tests for each build.
 
+##Continuous Integration 
+The DRT development scheme integrated GitHub with Travis-CI to achieve continuous integration (CI), and integrated with PaaS provider Heroku for continuous deployment. The CI system executed tests for each pull request and merged to the master branch.  Once the CI passed on the master branch the application was automatically deployed to foodrecallgateway.herokuapp.com.  
 
+##Configuration Management
+The DRT configuration management approach leveraged the Git code repository to manage code changes, pulls, and merges.  We applied a tag/label for the prototype deliverable on 25 June 2015.
 
-
-
-
-
-
-
+##Continuous Monitoring
+The DRT team integrated New Relic APM and BROWSER instances to monitor and understand the site's performance from the end-user perspective.
 
 
 
