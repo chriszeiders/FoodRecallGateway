@@ -54,8 +54,15 @@ The DRT configuration management approach leveraged the Git code repository to m
 ##Continuous Monitoring
 The DRT team integrated New Relic APM and BROWSER instances to monitor and understand the site's performance from the end-user perspective.
 
+##Software Container
+The DRT team leveraged the light-weight Linux container, Dyno.
 
-
+##Iterative Approach
+DRT completed our BETA prototype within the original RFQ POP of 17 to 26 June.  We embraced the very limited timeframe as an opportunity to innovate, and designed and employed a hybrid agile approach which combined the Scrum methodology with a Kanban-like continuous development model.  In order to facilitate this fluid approach we used the Trello product management tool and designed a simple, continuous-flow project board, with the following components:  Epics>Product Backlog>Sprint Backlog>In Progress>To Verify>Done.  
+The development team had complete authority to advance work across the board up to the "To Verify" stage.  At that point the Scrum Master would coordinate and conduct testing/verification.  Once verified, the Scrum Master would move the work product into the "Done" stack.  
+This simple design gave real authority to our development team to choose and advance product backlog, an approach we felt critical given the limited timeframe, and one we were comfortable with based on a cohesive, user-focused dev team.  
+That one basic gate we employed between "To Verify" and "Done" was a simple, lightweight method to ensure that the Scrum Master and Delivery Manager would have the ability to provide oversight and employ final authority.  The simple design of the Trello board also allowed our Scrum Master and Delivery Manager to watch the entire Sprint in real-time, commenting and working with the development team as they observed product flow across the board, and choosing when to conduct usability tests.
+Our User-Centered Design approach included Initial Design (A/B) testing, Application Usability testing at multiple steps, and Accessibility (508) testing.
 
 
 
