@@ -39,7 +39,6 @@ The DRT 18F ADS 1 development team has demonstrated experience bringing improved
 11. Team Communication: Slack 
 
 ##Deployment
-Deployment
 The prototype is deployed on Heroku, a Platform as a Service (PaaS) provider.  The URL is http://foodrecallgateway.herokuapp.com/.
 
 
